@@ -1,14 +1,10 @@
 package com.example.habits
 
-import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.ui.main.SectionsPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,16 +16,5 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        val fab: FloatingActionButton = findViewById(R.id.CreateGoalClick)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
-        // Action when the "Neues Ziel" Button ist pressd
-        CreateGoalClick.setOnClickListener {
-            startActivity(Intent(this, CreateGoalActivity::class.java))
-        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.habits
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
@@ -42,13 +43,15 @@ class CreateGoalActivity : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        // Get radio group selected item using on checked change listener
-        /*ZielErinnerungRadioGroup.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                val radio: RadioButton = findViewById(checkedId)
-                Toast.makeText(applicationContext," On checked change : ${radio.text}",
-                    Toast.LENGTH_SHORT).show()
-            })*/
+        // Action when "Hinzufügen" button is pressed
+        ZielHinzufügenClick.setOnClickListener {
+            // To start an instance of SharedPreferences to save data
+            val data = getSharedPreferences("data", Context.MODE_PRIVATE)
+            // Write data into preferences (storage)
+            data.edit().apply {
+                putString("savedGoalName", ZielNameEingabe.text.toString())
+            }.apply()
+        }
 
 
         // Get radio group selected status and text using button click event
@@ -66,14 +69,5 @@ class CreateGoalActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    // Get the selected radio button text using radio button on click listener
-    fun zielErinnerungClick (view: View){
-        // Get the clicked radio button instance
-        //val radio: RadioButton = findViewById(ZielErinnerungRadioGroup.checkedRadioButtonId)
-        // Shows the clicked Button for the user on the bottom of the screen
-        //Toast.makeText(applicationContext,"On click : ${radio.text}",
-        //    Toast.LENGTH_SHORT).show()
     }
 }
