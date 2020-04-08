@@ -31,7 +31,7 @@ class FragmentGoals : Fragment() {
             startActivity(Intent(this.context, CreateGoalActivity::class.java))
         }
 
-        // TODO getSharedPreferences noch implementieren
+        // TODO getSharedPreferences noch implementieren !
         /*
         // To show the goals saved in preferences
         val data = activity.getSharedPreferences("data", Context.MODE_PRIVATE)
