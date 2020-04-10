@@ -21,4 +21,7 @@ class FragmentTips : Fragment() {
         return inflater.inflate(R.layout.fragment_tips, container, false)
     }
 
+    companion object {
+        fun newInstance() = FragmentGoals()
+    }
 }

@@ -23,11 +23,12 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
     override fun getItem(position: Int): Fragment {
         // To load in the different Fragments when the tabs are pressed
         return when (position) {
-            0 -> FragmentGoals()
-            1 -> FragmentNotes()
-            else -> FragmentTips()
+            0 -> FragmentGoals.newInstance()
+            1 -> FragmentNotes.newInstance()
+            2 -> FragmentTips.newInstance()
+            else -> FragmentGoals.newInstance()
         }
-        //return PlaceholderFragment.newInstance(position + 1)
+        //return FragmentPlaceholder.newInstance(position + 1)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

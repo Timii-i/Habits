@@ -21,4 +21,7 @@ class FragmentNotes : Fragment() {
         return inflater.inflate(R.layout.fragment_notes, container, false)
     }
 
+    companion object {
+        fun newInstance() = FragmentGoals()
+    }
 }
