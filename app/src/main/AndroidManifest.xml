@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateGoalActivity" />
+        <activity android:name=".CreateNoteActivity" />
+        <activity android:name=".ui.main.SectionsPagerAdapter" />
     </application>
 
 </manifest>
