@@ -12,6 +12,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.R
+import com.example.habits.ui.main.FragmentGoals
 import kotlinx.android.synthetic.main.create_goal.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,13 +60,17 @@ class CreateGoalActivity : AppCompatActivity() {
             ZielDauer.error = null
             ZielErinnerung.error = null
 
-            // Checks if the fields are empty or not
+            // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
                 Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text}", Toast.LENGTH_SHORT).show()
+
+                // Adds the user input from create_goal into a list to display it in the "Ziele" Tab
+                //val list = listOf(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
+                FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
+
                 finish()
             } else {
-                //Toast.makeText(applicationContext, "Error: Fehlende Eingabe", Toast.LENGTH_SHORT).show()
                 if(goalName.trim().isEmpty()) {
                     ZielName.error = "Fehlende Eingabe"
                 }
@@ -76,34 +81,6 @@ class CreateGoalActivity : AppCompatActivity() {
                     ZielErinnerung.error = "Fehlende Eingabe"
                 }
             }
-
-
-        // To start an instance of SharedPreferences to save data
-        //val data = Intent(this@CreateGoalActivity,FragmentGoals::class.java)
-        //intent.putExtra("savedGoalName", ZielNameEingabe.text.toString())
-        //startActivity(intent)
-        //val data = getSharedPreferences("data", Context.MODE_PRIVATE)
-        // Write data into preferences (storage)
-        //data.edit().apply {
-        //    putString("savedGoalName", ZielNameEingabe.text.toString())
-        //}.apply()
         }
-
-
-        // Get radio group selected status and text using button click event
-//        ZielHinzufügenClick.setOnClickListener{
-//            // Get the checked radio button id from radio group
-//            var id: Int = ZielErinnerungRadioGroup.checkedRadioButtonId
-//            if (id!=-1){ // If any radio button checked from radio group
-//                // Get the instance of radio button using id
-//                val radio:RadioButton = findViewById(id)
-//                Toast.makeText(applicationContext,"On button click : ${radio.text}",
-//                    Toast.LENGTH_SHORT).show()
-//            }else{
-//                // If no radio button checked in this radio group
-//                Toast.makeText(applicationContext,"On button click : nothing selected",
-//                    Toast.LENGTH_SHORT).show()
-//            }
-//        }
     }
 }
