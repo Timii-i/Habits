@@ -1,4 +1,4 @@
-package com.example.habits.ui.main
+package com.example.habits.Notes
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.habits.R
-import com.example.habits.CreateNoteActivity
 import kotlinx.android.synthetic.main.fragment_notes.view.*
 
 /**

@@ -1,4 +1,4 @@
-package com.example.habits
+package com.example.habits.Goals
 
 // Goal data class that holds the input data from CreateGoalActivity
 data class Goal (

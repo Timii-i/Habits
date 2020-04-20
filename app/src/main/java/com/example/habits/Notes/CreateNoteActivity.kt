@@ -1,4 +1,4 @@
-package com.example.habits
+package com.example.habits.Notes
 
 import android.os.Bundle
 import android.view.View

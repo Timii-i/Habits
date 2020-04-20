@@ -1,27 +1,20 @@
-package com.example.habits
+package com.example.habits.Goals
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
-import android.util.Patterns
-import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.R
-import com.example.habits.ui.main.FragmentGoals
-import kotlinx.android.synthetic.main.create_goal.*
+import kotlinx.android.synthetic.main.edit_goal.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateGoalActivity : AppCompatActivity() {
+class EditGoalActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.create_goal)
+        setContentView(R.layout.edit_goal)
 
         // Set date and open calender
         val cal = Calendar.getInstance()
@@ -48,8 +41,8 @@ class CreateGoalActivity : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        // Action when "Hinzufügen" button is pressed
-        ZielHinzufügenClick.setOnClickListener {
+        // Action when "Ändern" button is pressed
+        ZielÄndernClick.setOnClickListener {
 
             // Saves the input from the user in variables
             val goalName: String = ZielNameEingabe.text.toString()
@@ -65,8 +58,12 @@ class CreateGoalActivity : AppCompatActivity() {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
                 Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text}", Toast.LENGTH_SHORT).show()
 
-                // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
-                FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
+                FragmentGoals.goalList[position] =
+                    Goal(
+                        goalName,
+                        goalDuration,
+                        goalReminderName.text.toString()
+                    )
 
                 finish()
             } else {
@@ -81,5 +78,9 @@ class CreateGoalActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        var position: Int = 0
     }
 }

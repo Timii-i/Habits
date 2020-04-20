@@ -1,9 +1,12 @@
-package com.example.habits.ui.main
+package com.example.habits.ui.adapters
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.habits.Goals.FragmentGoals
+import com.example.habits.Notes.FragmentNotes
+import com.example.habits.Motivation.FragmentMotivation
 import com.example.habits.R
 
 private val TAB_TITLES = arrayOf(
@@ -26,7 +29,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
         return when(position) {
             0 -> FragmentGoals()
             1 -> FragmentNotes()
-            else -> FragmentTips()
+            else -> FragmentMotivation()
         }
     }
 

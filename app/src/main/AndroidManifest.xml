@@ -19,9 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateGoalActivity" />
-        <activity android:name=".CreateNoteActivity" />
-        <activity android:name=".ui.main.SectionsPagerAdapter" />
+        <activity android:name=".Goals.CreateGoalActivity" />
+        <activity android:name=".Notes.CreateNoteActivity" />
+        <activity android:name=".ui.adapters.SectionsPagerAdapter" />
+        <activity android:name=".Goals.EditGoalActivity" />
     </application>
 
 </manifest>

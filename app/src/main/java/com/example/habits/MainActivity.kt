@@ -1,12 +1,10 @@
 package com.example.habits
 
-import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import com.example.habits.ui.main.SectionsPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.habits.ui.adapters.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
