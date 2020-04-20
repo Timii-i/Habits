@@ -65,8 +65,7 @@ class CreateGoalActivity : AppCompatActivity() {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
                 Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text}", Toast.LENGTH_SHORT).show()
 
-                // Adds the user input from create_goal into a list to display it in the "Ziele" Tab
-                //val list = listOf(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
+                // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
                 FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
 
                 finish()

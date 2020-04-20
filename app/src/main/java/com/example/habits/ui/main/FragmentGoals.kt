@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habits.CreateGoalActivity
 import com.example.habits.Goal
 import com.example.habits.R
@@ -53,9 +54,14 @@ class FragmentGoals : Fragment() {
     // onStart
     override fun onStart() {
         super.onStart()
+
+        rv_goal_list.layoutManager = LinearLayoutManager(activity)
+        rv_goal_list.adapter = GoalAdapter(goalList, activity)
+
+        /*ZielAnzeige.text = ""
         goalList.forEach() {
             ZielAnzeige.append("${it.Name} -- ${it.Duration} -- ${it.Reminder}\n")
-        }
+        }*/
 
         Log.i("FragmentGoals", "onStart called")
     }
@@ -83,7 +89,7 @@ class FragmentGoals : Fragment() {
     companion object {
 
         // The List where the goals are saved to show in the "Ziele" Tab
-        var goalList: MutableList<Goal> = ArrayList()
+        val goalList: ArrayList<Goal> = ArrayList()
         /*
         private const val ARG_GOALNAME = "goalname"
         private const val ARG_GOALDURATION = "goalduration"
