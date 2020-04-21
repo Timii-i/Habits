@@ -59,7 +59,9 @@ class FragmentGoals : Fragment() {
                 Goal(
                     "adadada",
                     "15.08.2020",
-                    "Garnicht"
+                    "Garnicht",
+                    "",
+                    "Hellblau"
                 )
             )
             goalList.add(
@@ -75,7 +77,26 @@ class FragmentGoals : Fragment() {
                     "oigfnrsdig",
                     "69.03.2069",
                     "Monatlich",
-                    "ExtremlangeKategorie"
+                    "ExtremlangeKategorie",
+                    "Hellgrün"
+                )
+            )
+            goalList.add(
+                Goal(
+                    "5357547",
+                    "42.01.2420",
+                    "Garnicht",
+                    "Haushalt",
+                    "Dunkelgrau"
+                )
+            )
+            goalList.add(
+                Goal(
+                    "Mein Ziel420",
+                    "77.99.1366",
+                    "Täglich",
+                    "",
+                    "Hellrot"
                 )
             )
         }

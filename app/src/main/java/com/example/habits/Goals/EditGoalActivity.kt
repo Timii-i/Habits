@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditGoalActivity() : AppCompatActivity() {
+    private var color: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,23 @@ class EditGoalActivity() : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        // Actions when a color is pressed
+        ZielFarbeÄndernStandard.setOnClickListener {
+            color = "Standard"
+        }
+        ZielFarbeÄndernHellblau.setOnClickListener {
+            color = "Hellblau"
+        }
+        ZielFarbeÄndernHellgrün.setOnClickListener {
+            color = "Hellgrün"
+        }
+        ZielFarbeÄndernHellrot.setOnClickListener {
+            color = "Hellrot"
+        }
+        ZielFarbeÄndernDunkelgrau.setOnClickListener {
+            color = "Dunkelgrau"
+        }
+
         // Action when "Ändern" button is pressed
         ZielÄndernClick.setOnClickListener {
 
@@ -56,6 +74,10 @@ class EditGoalActivity() : AppCompatActivity() {
             val goalDuration: String = ZielDauerAnzeige.text.toString()
             val goalReminder: Int = ZielErinnerungRadioGroup.checkedRadioButtonId
             val goalCategory: String = ZielKategorieEingabeÄndern.text.toString()
+            var goalColor: String = ""
+            if (color != "") {
+                goalColor = color
+            }
 
             ZielName.error = null
             ZielDauer.error = null
@@ -64,14 +86,15 @@ class EditGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} ZielKategorie: $goalCategory", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
 
                 FragmentGoals.goalList[position] =
                     Goal(
                         goalName,
                         goalDuration,
                         goalReminderName.text.toString(),
-                        goalCategory
+                        goalCategory,
+                        goalColor
                     )
 
                 finish()

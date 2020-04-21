@@ -4,11 +4,13 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.*
@@ -16,6 +18,7 @@ import com.example.habits.Goals.EditGoalActivity
 import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.Goals.Goal
 import kotlinx.android.synthetic.main.goal_list_item.view.*
+import org.jetbrains.anko.find
 
 class GoalAdapter (private val items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<GoalViewHolder>() {
 
@@ -42,11 +45,27 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
         }
         setDeleteButton(holder, position)
         setEditButton(holder, position)
+        setBackground(holder, position)
     }
 
     // Return the number of goals in the list
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    // Function to set the background for each goal
+    private fun setBackground(holder: GoalViewHolder, position: Int) {
+        if (items[position].Color == "" || items[position].Color == "Standard") {
+            holder.layout.setBackgroundColor(Color.WHITE)
+        } else if (items[position].Color == "Hellblau") {
+            holder.layout.setBackgroundColor(Color.parseColor("#ff33b5e5"))
+        } else if (items[position].Color == "Hellgrün") {
+            holder.layout.setBackgroundColor(Color.parseColor("#ff99cc00"))
+        } else if (items[position].Color == "Hellrot") {
+            holder.layout.setBackgroundColor(Color.parseColor("#ffff4444"))
+        } else if (items[position].Color == "Dunkelgrau") {
+            holder.layout.setBackgroundColor(Color.parseColor("#ffaaaaaa"))
+        }
     }
 
     // Function to set up the delete Button
@@ -91,4 +110,5 @@ class GoalViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val btnDelete: ImageButton = view.findViewById(R.id.buttonDelete)
     val btnUpdate: ImageButton = view.findViewById(R.id.buttonUpdate)
     val ivGoalCategory: ImageView = view.findViewById(R.id.imageGoalCategory)
+    val layout: RelativeLayout = view.findViewById(R.id.goalLayout)
 }
