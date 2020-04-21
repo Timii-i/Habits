@@ -23,6 +23,7 @@
         <activity android:name=".Notes.CreateNoteActivity" />
         <activity android:name=".ui.adapters.SectionsPagerAdapter" />
         <activity android:name=".Goals.EditGoalActivity" />
+        <activity android:name=".Notes.EditNoteActivity" />
     </application>
 
 </manifest>

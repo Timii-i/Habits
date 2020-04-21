@@ -16,15 +16,15 @@ import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.Goals.Goal
 import kotlinx.android.synthetic.main.goal_list_item.view.*
 
-class GoalAdapter (private val items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<ViewHolder>() {
+class GoalAdapter (private val items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<GoalViewHolder>() {
 
     // Inflates the item views
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.goal_list_item, parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
+        return GoalViewHolder(LayoutInflater.from(context).inflate(R.layout.goal_list_item, parent,false))
     }
 
     // Binds each goal in the ArrayList to a view
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
         // Sets the Name, Duration and Reminder of each element in the RecyclerView
         holder.tvGoalName.text = items[position].Name
         holder.tvGoalDuration.text = "Bis wann: ${items[position].Duration}"
@@ -43,7 +43,7 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
     }
 
     // Function to set up the delete Button
-    private fun setDeleteButton(holder: ViewHolder, position: Int) {
+    private fun setDeleteButton(holder: GoalViewHolder, position: Int) {
         holder.btnDelete.setOnClickListener{
             // Opens an AlertBox when the delete button is pressed
             val alertDialog = AlertDialog.Builder(context)
@@ -66,7 +66,7 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
     }
 
     // Function to set up the edit button and open EditGoalActivity when edit button is pressed
-    private fun setEditButton(holder: ViewHolder, position: Int) {
+    private fun setEditButton(holder: GoalViewHolder, position: Int) {
         holder.btnUpdate.setOnClickListener {
             EditGoalActivity.position = position
             context?.startActivity(Intent(context, EditGoalActivity::class.java))
@@ -74,7 +74,7 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
     }
 }
 
-class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+class GoalViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each goal
     val tvGoalName: TextView = view.textGoalName
     val tvGoalDuration: TextView = view.textGoalDuration

@@ -7,6 +7,10 @@
     <string name="label_button_edit_goal">Update</string>
     <string name="label_button_delete_goal">Delete</string>
 
+    <string name ="dialog_delete_note_Name">Lösche Ziel</string>
+    <string name="dialog_delete_note_confirmation">Bist du sicher das du das Ziel löschen möchtest</string>
+    <string name="dialog_delete_note_deleted">Ziel gelöscht!</string>
+
     <string name="dialog_delete_goal_title">Lösche Ziel</string>
     <string name="dialog_delete_goal_confirmation">Bist du sicher das du das Ziel löschen möchtest</string>
     <string name="dialog_delete_goal_deleted">Ziel gelöscht!</string>

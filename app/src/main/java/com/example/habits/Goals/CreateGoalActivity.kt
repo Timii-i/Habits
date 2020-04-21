@@ -59,7 +59,7 @@ class CreateGoalActivity() : AppCompatActivity() {
                 Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text}", Toast.LENGTH_SHORT).show()
 
                 // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
-                //FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
+                FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
 
                 finish()
             } else {

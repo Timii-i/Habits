@@ -28,13 +28,15 @@ class FragmentGoals : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_goals, container, false)
 
+        addGoals()
+
         Log.i("FragmentGoals", "onCreateView called")
 
         // Action when the "Neues Ziel" Button is pressed
         view.createGoalClick.setOnClickListener {
-                startActivity(Intent(activity, CreateGoalActivity::class.java))
-
+            startActivity(Intent(activity, CreateGoalActivity::class.java))
         }
+
         return view
     }
 
@@ -42,7 +44,7 @@ class FragmentGoals : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        addGoals()
+
         rv_goal_list.layoutManager = LinearLayoutManager(activity)
         rv_goal_list.adapter = GoalAdapter(
             goalList,
