@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.fragment_goals.view.createGoalClick
  * A simple [Fragment] subclass.
  */
 class FragmentGoals : Fragment() {
-    // To keep track if the user creates a new goal or updates an existing one
-    private var isUpdate = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +25,8 @@ class FragmentGoals : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_goals, container, false)
+
+        addGoals()
 
         Log.i("FragmentGoals", "onCreateView called")
 
@@ -42,7 +42,6 @@ class FragmentGoals : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        addGoals()
         rv_goal_list.layoutManager = LinearLayoutManager(activity)
         rv_goal_list.adapter = GoalAdapter(
             goalList,
@@ -67,49 +66,16 @@ class FragmentGoals : Fragment() {
                 Goal(
                     "123",
                     "69.03.2069",
-                    "Täglich"
+                    "Täglich",
+                    "Haushalt"
                 )
             )
             goalList.add(
                 Goal(
-                    "xccxc",
-                    "01.04.2020",
-                    "Monatlich"
-                )
-            )
-            goalList.add(
-                Goal(
-                    "232323232",
-                    "24.06.1945",
-                    "Wöchentlich"
-                )
-            )
-            goalList.add(
-                Goal(
-                    "hfghfhfh",
-                    "01.04.2020",
-                    "Monatlich"
-                )
-            )
-            goalList.add(
-                Goal(
-                    "werwrwrwrw",
-                    "01.04.2020",
-                    "Garnicht"
-                )
-            )
-            goalList.add(
-                Goal(
-                    "rwr",
-                    "01.04.2020",
-                    "Monatlich"
-                )
-            )
-            goalList.add(
-                Goal(
-                    "vnvnvnvnvn",
-                    "01.04.2020",
-                    "Täglich"
+                    "oigfnrsdig",
+                    "69.03.2069",
+                    "Monatlich",
+                    "ExtremlangeKategorie"
                 )
             )
         }
