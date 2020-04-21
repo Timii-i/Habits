@@ -7,6 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.R
 import kotlinx.android.synthetic.main.edit_goal.*
+import kotlinx.android.synthetic.main.edit_goal.ZielDauer
+import kotlinx.android.synthetic.main.edit_goal.ZielDauerAnzeige
+import kotlinx.android.synthetic.main.edit_goal.ZielDauerEingabeClick
+import kotlinx.android.synthetic.main.edit_goal.ZielErinnerung
+import kotlinx.android.synthetic.main.edit_goal.ZielErinnerungRadioGroup
+import kotlinx.android.synthetic.main.edit_goal.ZielName
+import kotlinx.android.synthetic.main.edit_goal.ZielNameEingabe
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -48,6 +55,7 @@ class EditGoalActivity() : AppCompatActivity() {
             val goalName: String = ZielNameEingabe.text.toString()
             val goalDuration: String = ZielDauerAnzeige.text.toString()
             val goalReminder: Int = ZielErinnerungRadioGroup.checkedRadioButtonId
+            val goalCategory: String = ZielKategorieEingabeÄndern.text.toString()
 
             ZielName.error = null
             ZielDauer.error = null
@@ -56,13 +64,14 @@ class EditGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} ZielKategorie: $goalCategory", Toast.LENGTH_SHORT).show()
 
                 FragmentGoals.goalList[position] =
                     Goal(
                         goalName,
                         goalDuration,
-                        goalReminderName.text.toString()
+                        goalReminderName.text.toString(),
+                        goalCategory
                     )
 
                 finish()

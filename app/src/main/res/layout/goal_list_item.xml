@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="TextView"
+        android:text="Name"
+        android:maxLength="35"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -26,7 +27,7 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="3"
-        android:text="TextView" />
+        android:text="Dauer" />
 
     <TextView
         android:id="@+id/textGoalReminder"
@@ -35,7 +36,29 @@
         android:layout_below="@+id/textGoalDuration"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="Erinnerung" />
+
+    <TextView
+        android:id="@+id/textGoalCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:alpha=".75"
+        android:text="Kategorie"
+        android:maxLength="12"
+        android:textSize="12sp"/>
+
+    <ImageView
+        android:id="@+id/imageGoalCategory"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="-8dp"
+        android:layout_marginTop="3dp"
+        android:layout_toLeftOf="@id/textGoalCategory"
+        app:srcCompat="@drawable/ic_tag_small_foreground"
+        android:visibility="visible"/>
 
     <LinearLayout
         android:id="@+id/layoutGoalItemButtonArea"

@@ -48,6 +48,7 @@ class CreateGoalActivity() : AppCompatActivity() {
             val goalName: String = ZielNameEingabe.text.toString()
             val goalDuration: String = ZielDauerAnzeige.text.toString()
             val goalReminder: Int = ZielErinnerungRadioGroup.checkedRadioButtonId
+            val goalCategory: String = ZielKategorieEingabe.text.toString()
 
             ZielName.error = null
             ZielDauer.error = null
@@ -56,10 +57,10 @@ class CreateGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} ZielKategorie: $goalCategory", Toast.LENGTH_SHORT).show()
 
                 // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
-                FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString())))
+                FragmentGoals.goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString()), goalCategory))
 
                 finish()
             } else {

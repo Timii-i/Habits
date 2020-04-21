@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.*
@@ -32,6 +33,12 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
             holder.tvGoalReminder.text = "Keine Erinnerungen"
         } else {
             holder.tvGoalReminder.text = "Erinnerungen immer: ${items[position].Reminder}"
+        }
+        if (items[position].Category == "") {
+            holder.tvGoalCategory.text = ""
+            holder.ivGoalCategory.visibility = View.INVISIBLE
+        } else {
+            holder.tvGoalCategory.text = items[position].Category
         }
         setDeleteButton(holder, position)
         setEditButton(holder, position)
@@ -74,11 +81,14 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
     }
 }
 
+
 class GoalViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each goal
     val tvGoalName: TextView = view.textGoalName
     val tvGoalDuration: TextView = view.textGoalDuration
     val tvGoalReminder: TextView = view.textGoalReminder
+    val tvGoalCategory: TextView = view.textGoalCategory
     val btnDelete: ImageButton = view.findViewById(R.id.buttonDelete)
     val btnUpdate: ImageButton = view.findViewById(R.id.buttonUpdate)
+    val ivGoalCategory: ImageView = view.findViewById(R.id.imageGoalCategory)
 }
