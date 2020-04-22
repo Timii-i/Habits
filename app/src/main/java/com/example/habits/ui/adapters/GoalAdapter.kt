@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,12 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.habits.*
 import com.example.habits.Goals.EditGoalActivity
 import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.Goals.Goal
+import com.example.habits.R
 import kotlinx.android.synthetic.main.goal_list_item.view.*
-import org.jetbrains.anko.find
+
 
 class GoalAdapter (private val items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<GoalViewHolder>() {
 
@@ -56,15 +57,15 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
     // Function to set the background for each goal
     private fun setBackground(holder: GoalViewHolder, position: Int) {
         if (items[position].Color == "" || items[position].Color == "Standard") {
-            holder.layout.setBackgroundColor(Color.WHITE)
-        } else if (items[position].Color == "Hellblau") {
-            holder.layout.setBackgroundColor(Color.parseColor("#ff33b5e5"))
-        } else if (items[position].Color == "Hellgrün") {
-            holder.layout.setBackgroundColor(Color.parseColor("#ff99cc00"))
-        } else if (items[position].Color == "Hellrot") {
-            holder.layout.setBackgroundColor(Color.parseColor("#ffff4444"))
-        } else if (items[position].Color == "Dunkelgrau") {
-            holder.layout.setBackgroundColor(Color.parseColor("#ffaaaaaa"))
+            holder.layout.setBackgroundColor(Color.parseColor("#ededed"))
+        } else if (items[position].Color == "Blau") {
+            holder.layout.setBackgroundColor(Color.parseColor("#00adb5"))
+        } else if (items[position].Color == "Rot") {
+            holder.layout.setBackgroundColor(Color.parseColor("#F07966"))
+        } else if (items[position].Color == "Orange") {
+            holder.layout.setBackgroundColor(Color.parseColor("#fbb13c"))
+        } else if (items[position].Color == "Grau") {
+            holder.layout.setBackgroundColor(Color.parseColor("#C5C5C5"))
         }
     }
 

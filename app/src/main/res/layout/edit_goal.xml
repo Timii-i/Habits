@@ -243,39 +243,49 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_standard" />
+            android:background="@drawable/button_standard"
+            android:text="✔"
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeÄndernHellblau"
+            android:id="@+id/ZielFarbeÄndernBlau"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_lightblue" />
+            android:background="@drawable/button_blue"
+            android:text=""
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeÄndernHellgrün"
+            android:id="@+id/ZielFarbeÄndernRot"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_lightgreen" />
+            android:background="@drawable/button_red"
+            android:text=""
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeÄndernHellrot"
+            android:id="@+id/ZielFarbeÄndernOrange"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_lightred" />
+            android:background="@drawable/button_orange"
+            android:text=""
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeÄndernDunkelgrau"
+            android:id="@+id/ZielFarbeÄndernGrau"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_darkgrey" />
+            android:background="@drawable/button_gray"
+            android:text=""
+            android:textColor="#535353"/>
 
     </LinearLayout>
 

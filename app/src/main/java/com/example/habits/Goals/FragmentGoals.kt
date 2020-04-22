@@ -60,8 +60,7 @@ class FragmentGoals : Fragment() {
                     "adadada",
                     "15.08.2020",
                     "Garnicht",
-                    "",
-                    "Hellblau"
+                    ""
                 )
             )
             goalList.add(
@@ -69,7 +68,8 @@ class FragmentGoals : Fragment() {
                     "123",
                     "69.03.2069",
                     "Täglich",
-                    "Haushalt"
+                    "Haushalt",
+                    "Blau"
                 )
             )
             goalList.add(
@@ -78,7 +78,7 @@ class FragmentGoals : Fragment() {
                     "69.03.2069",
                     "Monatlich",
                     "ExtremlangeKategorie",
-                    "Hellgrün"
+                    "Rot"
                 )
             )
             goalList.add(
@@ -87,7 +87,7 @@ class FragmentGoals : Fragment() {
                     "42.01.2420",
                     "Garnicht",
                     "Haushalt",
-                    "Dunkelgrau"
+                    "Orange"
                 )
             )
             goalList.add(
@@ -96,7 +96,7 @@ class FragmentGoals : Fragment() {
                     "77.99.1366",
                     "Täglich",
                     "",
-                    "Hellrot"
+                    "Grau"
                 )
             )
         }

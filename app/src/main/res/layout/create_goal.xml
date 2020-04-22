@@ -231,10 +231,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
             android:text="Farbe: "
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginRight="10dp" />
 
         <Button
             android:id="@+id/ZielFarbeStandard"
@@ -242,39 +241,49 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_standard" />
+            android:background="@drawable/button_standard"
+            android:text="✔"
+            android:textColor="#535353" />
 
         <Button
-            android:id="@+id/ZielFarbeHellblau"
+            android:id="@+id/ZielFarbeBlau"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_lightblue" />
+            android:background="@drawable/button_blue"
+            android:text=""
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeHellgrün"
+            android:id="@+id/ZielFarbeRot"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_lightgreen" />
+            android:background="@drawable/button_red"
+            android:text=""
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeHellrot"
+            android:id="@+id/ZielFarbeOrange"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_lightred" />
+            android:background="@drawable/button_orange"
+            android:text=""
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeDunkelgrau"
+            android:id="@+id/ZielFarbeGrau"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_darkgrey" />
+            android:background="@drawable/button_gray"
+            android:text=""
+            android:textColor="#535353"/>
 
     </LinearLayout>
 

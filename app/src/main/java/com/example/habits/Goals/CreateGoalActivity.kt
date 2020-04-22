@@ -2,6 +2,7 @@ package com.example.habits.Goals
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,6 @@ import kotlinx.android.synthetic.main.create_goal.ZielErinnerung
 import kotlinx.android.synthetic.main.create_goal.ZielErinnerungRadioGroup
 import kotlinx.android.synthetic.main.create_goal.ZielName
 import kotlinx.android.synthetic.main.create_goal.ZielNameEingabe
-import kotlinx.android.synthetic.main.edit_goal.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -53,18 +53,33 @@ class CreateGoalActivity() : AppCompatActivity() {
         // Actions when a color is pressed
         ZielFarbeStandard.setOnClickListener {
             color = "Standard"
+
+            uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeOrange, ZielFarbeGrau)
+            ZielFarbeStandard.text = "✔"
         }
-        ZielFarbeHellblau.setOnClickListener {
-            color = "Hellblau"
+        ZielFarbeBlau.setOnClickListener {
+            color = "Blau"
+
+            uncheckColors(ZielFarbeStandard, ZielFarbeRot, ZielFarbeOrange, ZielFarbeGrau)
+            ZielFarbeBlau.text = "✔"
         }
-        ZielFarbeHellgrün.setOnClickListener {
-            color = "Hellgrün"
+        ZielFarbeRot.setOnClickListener {
+            color = "Rot"
+
+            uncheckColors(ZielFarbeBlau, ZielFarbeStandard, ZielFarbeOrange, ZielFarbeGrau)
+            ZielFarbeRot.text = "✔"
         }
-        ZielFarbeHellrot.setOnClickListener {
-            color = "Hellrot"
+        ZielFarbeOrange.setOnClickListener {
+            color = "Orange"
+
+            uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeStandard, ZielFarbeGrau)
+            ZielFarbeOrange.text = "✔"
         }
-        ZielFarbeDunkelgrau.setOnClickListener {
-            color = "Dunkelgrau"
+        ZielFarbeGrau.setOnClickListener {
+            color = "Grau"
+
+            uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeOrange, ZielFarbeStandard)
+            ZielFarbeGrau.text = "✔"
         }
 
         // Action when "Hinzufügen" button is pressed
@@ -105,5 +120,12 @@ class CreateGoalActivity() : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun uncheckColors(button1: Button, button2: Button, button3: Button, button4: Button) {
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
     }
 }

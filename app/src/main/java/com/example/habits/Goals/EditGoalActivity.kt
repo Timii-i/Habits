@@ -2,6 +2,7 @@ package com.example.habits.Goals
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -52,18 +53,33 @@ class EditGoalActivity() : AppCompatActivity() {
         // Actions when a color is pressed
         ZielFarbeÄndernStandard.setOnClickListener {
             color = "Standard"
+
+            uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
+            ZielFarbeÄndernStandard.text = "✔"
         }
-        ZielFarbeÄndernHellblau.setOnClickListener {
-            color = "Hellblau"
+        ZielFarbeÄndernBlau.setOnClickListener {
+            color = "Blau"
+
+            uncheckColors(ZielFarbeÄndernStandard, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
+            ZielFarbeÄndernBlau.text = "✔"
         }
-        ZielFarbeÄndernHellgrün.setOnClickListener {
-            color = "Hellgrün"
+        ZielFarbeÄndernRot.setOnClickListener {
+            color = "Rot"
+
+            uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernStandard, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
+            ZielFarbeÄndernRot.text = "✔"
         }
-        ZielFarbeÄndernHellrot.setOnClickListener {
-            color = "Hellrot"
+        ZielFarbeÄndernOrange.setOnClickListener {
+            color = "Orange"
+
+            uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernStandard, ZielFarbeÄndernGrau)
+            ZielFarbeÄndernOrange.text = "✔"
         }
-        ZielFarbeÄndernDunkelgrau.setOnClickListener {
-            color = "Dunkelgrau"
+        ZielFarbeÄndernGrau.setOnClickListener {
+            color = "Grau"
+
+            uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernStandard)
+            ZielFarbeÄndernGrau.text = "✔"
         }
 
         // Action when "Ändern" button is pressed
@@ -110,6 +126,13 @@ class EditGoalActivity() : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun uncheckColors(button1: Button, button2: Button, button3: Button, button4: Button) {
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
     }
 
     companion object {
