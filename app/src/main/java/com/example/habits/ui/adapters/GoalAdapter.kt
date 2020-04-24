@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -13,15 +14,20 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.Goals.EditGoalActivity
+import com.example.habits.Goals.FragmentGoals
 import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.Goals.Goal
 import com.example.habits.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.goal_list_item.view.*
+import java.lang.reflect.Type
 
 
-class GoalAdapter (private val items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<GoalViewHolder>() {
+class GoalAdapter (private var items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<GoalViewHolder>() {
 
     // Inflates the item views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
@@ -30,6 +36,8 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
 
     // Binds each goal in the ArrayList to a view
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
+        //loadGoals()
+        //items = holder.items
         // Sets the Name, Duration and Reminder of each element in the RecyclerView
         holder.tvGoalName.text = items[position].Name
         holder.tvGoalDuration.text = "Bis wann: ${items[position].Duration}"
@@ -52,6 +60,14 @@ class GoalAdapter (private val items: ArrayList<Goal>, private val context: Cont
     // Return the number of goals in the list
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    private fun loadGoals(view: View) {
+        val sharedPreferences: SharedPreferences = view.context.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("goal list", null)
+        val type: Type = object : TypeToken<ArrayList<Goal?>?>() {}.type
+        FragmentGoals.goalList = gson.fromJson(json, type)
     }
 
     // Function to set the background for each goal

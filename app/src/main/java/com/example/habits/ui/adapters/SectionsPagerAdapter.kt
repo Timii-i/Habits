@@ -29,7 +29,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
         return when(position) {
             0 -> FragmentGoals()
             1 -> FragmentNotes()
-            else -> FragmentMotivation()
+            2 -> FragmentMotivation()
+            else -> FragmentGoals()
         }
     }
 

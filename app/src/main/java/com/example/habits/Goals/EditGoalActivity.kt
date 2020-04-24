@@ -55,31 +55,31 @@ class EditGoalActivity() : AppCompatActivity() {
             color = "Standard"
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
-            ZielFarbeÄndernStandard.text = "✔"
+            checkColor(ZielFarbeÄndernStandard)
         }
         ZielFarbeÄndernBlau.setOnClickListener {
             color = "Blau"
 
             uncheckColors(ZielFarbeÄndernStandard, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
-            ZielFarbeÄndernBlau.text = "✔"
+            checkColor(ZielFarbeÄndernBlau)
         }
         ZielFarbeÄndernRot.setOnClickListener {
             color = "Rot"
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernStandard, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
-            ZielFarbeÄndernRot.text = "✔"
+            checkColor(ZielFarbeÄndernRot)
         }
         ZielFarbeÄndernOrange.setOnClickListener {
             color = "Orange"
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernStandard, ZielFarbeÄndernGrau)
-            ZielFarbeÄndernOrange.text = "✔"
+            checkColor(ZielFarbeÄndernOrange)
         }
         ZielFarbeÄndernGrau.setOnClickListener {
             color = "Grau"
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernStandard)
-            ZielFarbeÄndernGrau.text = "✔"
+            checkColor(ZielFarbeÄndernGrau)
         }
 
         // Action when "Ändern" button is pressed
@@ -133,6 +133,10 @@ class EditGoalActivity() : AppCompatActivity() {
         button2.text = ""
         button3.text = ""
         button4.text = ""
+    }
+
+    private fun checkColor(button: Button) {
+        button.text = "✔"
     }
 
     companion object {
