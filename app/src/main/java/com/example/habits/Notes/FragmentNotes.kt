@@ -29,8 +29,8 @@ class FragmentNotes : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notes, container, false)
 
         addNotes()
-
-        Log.i("FragmentNotes", "onCreateView called")
+        super.onCreateView(inflater, container, savedInstanceState)
+        Log.i("Fragment", "onCreateView called(Notes)")
 
         // Action when the "Neue Notiz" Button is pressed
         view.createNoteClick.setOnClickListener {
