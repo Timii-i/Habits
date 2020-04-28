@@ -2,6 +2,7 @@ package com.example.habits.Goals
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,27 +13,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habits.R
 import com.example.habits.ui.adapters.GoalAdapter
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_goals.*
 import kotlinx.android.synthetic.main.fragment_goals.view.*
-import java.io.File
-import java.io.FileInputStream
-import java.io.IOException
-import java.io.ObjectInputStream
+import java.lang.reflect.Type
 
 
 /**
  * A simple [Fragment] subclass.
  */
 class FragmentGoals : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Calls the function to load the goals
+        loadGoals()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_goals, container, false)
-
-        loadGoals()
-        //addGoals()
 
         // Action when the "Neues Ziel" Button is pressed
         view.createGoalClick.setOnClickListener {
@@ -45,12 +48,7 @@ class FragmentGoals : Fragment() {
     // onStart
     override fun onStart() {
         super.onStart()
-        Log.i("FragmentGoals", "vor loadGoals(): $goalList" )
-        //loadGoals()
-        Log.i("FragmentGoals", "loadGoals() called: $goalList")
-        //saveGoals()
-        //Log.i("FragmentGoals", "saveList() called: $goalList")
-        //val goalList2: ArrayList<Goal> = loadData()
+
         // Loads the goals into the the view
         rv_goal_list.layoutManager = LinearLayoutManager(activity)
         rv_goal_list.adapter = GoalAdapter(
@@ -64,37 +62,14 @@ class FragmentGoals : Fragment() {
         Log.i("FragmentGoals", "onResume() called")
     }
 
-
-    // Function to save the goalList into SharedPreferences
-    fun saveGoals() {
-        val sharedPreferences = activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val json = gson.toJson(goalList)
-        editor.putString("goal list", json)
-        editor.apply()
-    }
-
+    // Function to load in the saved Goals from sharedPreferences
     private fun loadGoals() {
-        /*val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences ("goalPreferences", MODE_PRIVATE);
-        val gson =  Gson();
-        val json = sharedPreferences . getString ("goal list", null);
-        val type = object:  TypeToken<ArrayList<Goal>>() {}.type;
-        return gson.fromJson(json, type);*/
-        try {
-            val fis = FileInputStream("goalList.txt")
-            val ois = ObjectInputStream(fis)
-            goalList = ois.readObject() as ArrayList<Goal>
-            ois.close()
-            fis.close()
-        } catch (ioe: IOException) {
-            ioe.printStackTrace()
-            return
-        } catch (c: ClassNotFoundException) {
-            Log.i("tmp", "GoalList:")
-            c.printStackTrace()
-            return
-        }
+        val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("goals", null)
+        val type: Type = object: TypeToken<ArrayList<Goal>>() {}.type
+        goalList = gson.fromJson(json, type)
+
     }
 
 companion object {

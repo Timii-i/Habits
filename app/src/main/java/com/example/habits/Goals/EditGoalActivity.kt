@@ -1,12 +1,15 @@
 package com.example.habits.Goals
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.R
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.edit_goal.*
 import kotlinx.android.synthetic.main.edit_goal.ZielDauer
 import kotlinx.android.synthetic.main.edit_goal.ZielDauerAnzeige
@@ -113,6 +116,9 @@ class EditGoalActivity() : AppCompatActivity() {
                         goalColor
                     )
 
+                // Calls the function to edit/delete the goal from the goalList
+                editSavedGoals()
+
                 finish()
             } else {
                 if(goalName.trim().isEmpty()) {
@@ -128,6 +134,18 @@ class EditGoalActivity() : AppCompatActivity() {
         }
     }
 
+    // Function to edit/delete the goalList into SharedPreferences
+    private fun editSavedGoals() {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(FragmentGoals.goalList)
+        editor.putString("goals", json)
+        editor.apply()
+
+    }
+
+    // Function to uncheck every other color
     private fun uncheckColors(button1: Button, button2: Button, button3: Button, button4: Button) {
         button1.text = ""
         button2.text = ""
@@ -135,6 +153,7 @@ class EditGoalActivity() : AppCompatActivity() {
         button4.text = ""
     }
 
+    // Function to check the color that was pressed
     private fun checkColor(button: Button) {
         button.text = "✔"
     }
