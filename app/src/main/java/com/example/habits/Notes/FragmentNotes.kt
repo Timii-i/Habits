@@ -1,6 +1,8 @@
 package com.example.habits.Notes
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,15 +12,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habits.R
 import com.example.habits.ui.adapters.NoteAdapter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.android.synthetic.main.fragment_notes.view.createNoteClick
+import java.lang.reflect.Type
 
 /**
  * A simple [Fragment] subclass.
  */
 class FragmentNotes : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    private var isUpdate = false
+        // Calls the function to load the notes
+        loadNotes()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +37,7 @@ class FragmentNotes : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_notes, container, false)
 
-        addNotes()
         super.onCreateView(inflater, container, savedInstanceState)
-        Log.i("Fragment", "onCreateView called(Notes)")
 
         // Action when the "Neue Notiz" Button is pressed
         view.createNoteClick.setOnClickListener {
@@ -40,10 +47,8 @@ class FragmentNotes : Fragment() {
         return view
     }
 
-    // onStart
     override fun onStart() {
         super.onStart()
-
 
         rv_note_list.layoutManager = LinearLayoutManager(activity)
         rv_note_list.adapter = NoteAdapter(
@@ -52,10 +57,20 @@ class FragmentNotes : Fragment() {
         )
     }
 
+    // Function to load in the saved Notes from sharedPreferences
+    private fun loadNotes() {
+        val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("notes", null)
+        val type: Type = object: TypeToken<ArrayList<Note>>() {}.type
+        noteList = gson.fromJson(json, type)
+
+    }
+
     companion object {
 
         // The List where the Notes are saved to show in the "Notizen" Tab
-        val noteList: ArrayList<Note> = ArrayList()
+        var noteList: ArrayList<Note> = ArrayList()
 
         fun addNotes() {
             noteList.add(

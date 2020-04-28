@@ -116,7 +116,7 @@ class EditGoalActivity() : AppCompatActivity() {
                         goalColor
                     )
 
-                // Calls the function to edit/delete the goal from the goalList
+                // Edits/Deletes goal in sharedPreferencs
                 editSavedGoals()
 
                 finish()

@@ -57,11 +57,6 @@ class FragmentGoals : Fragment() {
         )
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i("FragmentGoals", "onResume() called")
-    }
-
     // Function to load in the saved Goals from sharedPreferences
     private fun loadGoals() {
         val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)

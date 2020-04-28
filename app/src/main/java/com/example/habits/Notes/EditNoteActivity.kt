@@ -1,10 +1,13 @@
 package com.example.habits.Notes
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.R
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.edit_note.*
 
 class EditNoteActivity() : AppCompatActivity() {
@@ -33,6 +36,9 @@ class EditNoteActivity() : AppCompatActivity() {
                         noteContent
                     )
 
+                // Edits/Deletes note in sharedPreferencs
+                editSavedNotes()
+
                 finish()
             } else {
                 if(noteName.trim().isEmpty()) {
@@ -43,6 +49,17 @@ class EditNoteActivity() : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    // Function to save the noteList into SharedPreferences
+    private fun editSavedNotes() {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(FragmentNotes.noteList)
+        editor.putString("notes", json)
+        editor.apply()
+
     }
 
     companion object {
