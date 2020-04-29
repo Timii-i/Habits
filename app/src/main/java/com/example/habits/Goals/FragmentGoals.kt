@@ -26,8 +26,11 @@ class FragmentGoals : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Calls the function to load the goals
-        loadGoals()
+        // Calls the function to load the goals if there are any
+        val sharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        if(sharedPreferences.contains("goals")) {
+            loadGoals()
+        }
     }
 
     override fun onCreateView(

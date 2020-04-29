@@ -25,8 +25,11 @@ class FragmentNotes : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Calls the function to load the notes
-        loadNotes()
+        // Calls the function to load the notes if there are any
+        val sharedPreferences = this.activity!!.getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        if(sharedPreferences.contains("notes")) {
+            loadNotes()
+        }
     }
 
     override fun onCreateView(
