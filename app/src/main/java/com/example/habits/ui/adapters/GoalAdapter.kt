@@ -36,15 +36,13 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
 
     // Binds each goal in the ArrayList to a view
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
-        //loadGoals()
-        //items = holder.items
         // Sets the Name, Duration and Reminder of each element in the RecyclerView
         holder.tvGoalName.text = items[position].Name
-        holder.tvGoalDuration.text = "Bis wann: ${items[position].Duration}"
+        holder.tvGoalDuration.text = items[position].Duration
         if (items[position].Reminder == "Garnicht") {
-            holder.tvGoalReminder.text = "Keine Erinnerungen"
+            holder.tvGoalReminder.text = " - "
         } else {
-            holder.tvGoalReminder.text = "Erinnerungen immer: ${items[position].Reminder}"
+            holder.tvGoalReminder.text = items[position].Reminder
         }
         if (items[position].Category == "") {
             holder.tvGoalCategory.text = ""
@@ -62,26 +60,23 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
         return items.size
     }
 
-    private fun loadGoals(view: View) {
-        val sharedPreferences: SharedPreferences = view.context.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
-        val gson = Gson()
-        val json = sharedPreferences.getString("goal list", null)
-        val type: Type = object : TypeToken<ArrayList<Goal?>?>() {}.type
-        FragmentGoals.goalList = gson.fromJson(json, type)
-    }
-
     // Function to set the background for each goal
     private fun setBackground(holder: GoalViewHolder, position: Int) {
         if (items[position].Color == "" || items[position].Color == "Standard") {
-            holder.layout.setBackgroundColor(Color.parseColor("#ededed"))
+            holder.layout.setBackgroundResource(R.drawable.button_standard)
+
         } else if (items[position].Color == "Blau") {
-            holder.layout.setBackgroundColor(Color.parseColor("#00adb5"))
+            holder.layout.setBackgroundResource(R.drawable.button_blue)
+
         } else if (items[position].Color == "Rot") {
-            holder.layout.setBackgroundColor(Color.parseColor("#F07966"))
+            holder.layout.setBackgroundResource(R.drawable.button_red)
+
         } else if (items[position].Color == "Orange") {
-            holder.layout.setBackgroundColor(Color.parseColor("#fbb13c"))
+            holder.layout.setBackgroundResource(R.drawable.button_orange)
+
         } else if (items[position].Color == "Grau") {
-            holder.layout.setBackgroundColor(Color.parseColor("#C5C5C5"))
+            holder.layout.setBackgroundResource(R.drawable.button_gray)
+
         }
     }
 
