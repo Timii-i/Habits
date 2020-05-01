@@ -3,6 +3,8 @@ package com.example.habits.Notes
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.Notes.FragmentNotes.Companion.noteList
@@ -31,7 +33,7 @@ class CreateNoteActivity : AppCompatActivity() {
 
 
             // Checks if the input fields are empty or not
-            if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty()) {
+            if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty() && noteName.trim().length <= 35) {
                 Toast.makeText(
                     applicationContext,
                     "NotizName: $noteName \nNotizInhalt: $noteContent \n",
@@ -53,9 +55,22 @@ class CreateNoteActivity : AppCompatActivity() {
                     NotizInhaltEingabe.error = "Fehlende Eingabe"
                 }
             }
-
-            finish()
         }
+
+        // Action when the note name is longer than 35 characters
+        NotizNameEingabe.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
+                if (zielNameText.trim().length > 35) {
+                    NotizNameEingabe.error = "Zu langer Name"
+                }
+            }
+        })
     }
 
     // Function to save the noteList into SharedPreferences

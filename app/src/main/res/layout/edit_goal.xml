@@ -33,6 +33,7 @@
         android:layout_marginRight="24dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="10"
         app:layout_constraintBottom_toTopOf="@+id/ZielDauer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -199,7 +200,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ZielErinnerungRadioGroup" />
 
     <EditText
-        android:id="@+id/ZielKategorieEingabeÄndern"
+        android:id="@+id/ZielKategorieEingabe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -226,7 +227,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ZielKategorieEingabeÄndern"
+        app:layout_constraintTop_toBottomOf="@+id/ZielKategorieEingabe"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView

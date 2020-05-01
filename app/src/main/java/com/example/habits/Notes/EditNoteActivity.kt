@@ -4,11 +4,16 @@ package com.example.habits.Notes
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.R
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.create_note.*
 import kotlinx.android.synthetic.main.edit_note.*
+import kotlinx.android.synthetic.main.edit_note.NotizInhaltEingabe
+import kotlinx.android.synthetic.main.edit_note.NotizTitel
 
 class EditNoteActivity() : AppCompatActivity() {
 
@@ -27,7 +32,7 @@ class EditNoteActivity() : AppCompatActivity() {
             NotizTitelEingabe.error = null
 
             // Checks if the input fields are empty or not
-            if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty()) {
+            if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty() && noteName.trim().length <= 35) {
                 Toast.makeText(applicationContext, "NotizName: $noteName \nNotizInhalt: $noteContent", Toast.LENGTH_SHORT).show()
 
                 FragmentNotes.noteList[position] =
@@ -49,6 +54,21 @@ class EditNoteActivity() : AppCompatActivity() {
                 }
             }
         }
+
+        // Action when the note name is longer than 35 characters
+        NotizNameEingabe.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
+                if (zielNameText.trim().length > 35) {
+                    NotizNameEingabe.error = "Zu langer Name"
+                }
+            }
+        })
     }
 
     // Function to save the noteList into SharedPreferences

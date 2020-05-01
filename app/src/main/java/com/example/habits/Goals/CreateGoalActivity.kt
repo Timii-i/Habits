@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
@@ -100,7 +102,7 @@ class CreateGoalActivity() : AppCompatActivity() {
             ZielErinnerung.error = null
 
             // Checks if the input fields are empty or not
-            if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1) {
+            if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1 && goalName.trim().length <= 35 && goalCategory.trim().length <= 15) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
                 Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
 
@@ -124,6 +126,35 @@ class CreateGoalActivity() : AppCompatActivity() {
             }
         }
 
+        // Action when the goal name is longer than 35 characters
+        ZielNameEingabe.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
+                if (zielNameText.trim().length > 35) {
+                    ZielNameEingabe.error = "Zu langer Name"
+                }
+            }
+        })
+
+        // Action when the goal category is longer than 15 characters
+        ZielKategorieEingabe.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(zielKategorieText: CharSequence, p1: Int, p2: Int, p3: Int) {
+                if (zielKategorieText.trim().length > 15) {
+                    ZielNameEingabe.error = "Zu langer Kategoriename"
+                }
+            }
+        })
     }
 
     // Function to save the goalList into SharedPreferences
