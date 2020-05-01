@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.habits">
+    package="com.example.habits" >
+<uses-permission android:name = "android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -19,9 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateGoalActivity" />
-        <activity android:name=".CreateNoteActivity" />
-        <activity android:name=".ui.main.SectionsPagerAdapter" />
+        <activity android:name=".Goals.CreateGoalActivity" />
+        <activity android:name=".Notes.CreateNoteActivity" />
+        <activity android:name=".ui.adapters.SectionsPagerAdapter" />
+        <activity android:name=".Goals.EditGoalActivity" />
+        <activity android:name=".Notes.EditNoteActivity" />
     </application>
 
 </manifest>

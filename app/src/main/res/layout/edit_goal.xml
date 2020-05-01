@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/ZielName"
@@ -14,7 +14,8 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Dein Ziel:   "
+        android:text="Dein Ziel: "
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -32,6 +33,7 @@
         android:layout_marginRight="24dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="10"
         app:layout_constraintBottom_toTopOf="@+id/ZielDauer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,7 +49,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Bis wann willst du dein Ziel erriecht haben ?   "
+        android:text="Bis wann willst du dein Ziel erriecht haben ?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.176"
@@ -231,22 +233,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:text="Farbe: "
-            android:textStyle="bold"
-            android:layout_marginRight="10dp" />
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/ZielFarbeStandard"
+            android:id="@+id/ZielFarbeÄndernStandard"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/button_standard"
             android:text="✔"
-            android:textColor="#535353" />
+            android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeBlau"
+            android:id="@+id/ZielFarbeÄndernBlau"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
@@ -256,7 +259,7 @@
             android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeRot"
+            android:id="@+id/ZielFarbeÄndernRot"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
@@ -266,7 +269,7 @@
             android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeOrange"
+            android:id="@+id/ZielFarbeÄndernOrange"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
@@ -276,7 +279,7 @@
             android:textColor="#535353"/>
 
         <Button
-            android:id="@+id/ZielFarbeGrau"
+            android:id="@+id/ZielFarbeÄndernGrau"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
@@ -288,7 +291,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/ZielHinzufügenClick"
+        android:id="@+id/ZielÄndernClick"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -296,7 +299,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="#4CAF50"
-        android:text="Hinzufügen"
+        android:text="Änderungen speichern"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

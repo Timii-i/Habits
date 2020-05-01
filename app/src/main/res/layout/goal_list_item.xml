@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="5dp"
+    app:layout_editor_absoluteX="5dp"
+    android:id="@+id/goalLayout">
+
+    <TextView
+        android:id="@+id/textGoalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        android:maxLength="35"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:maxLines="1"/>
+
+    <LinearLayout
+        android:id="@+id/GoalDurationArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textGoalName">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/ic_duration_black"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp" />
+
+        <TextView
+            android:id="@+id/textGoalDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Dauer" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/GoalReminderArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GoalDurationArea">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/ic_reminder_black"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp" />
+
+        <TextView
+            android:id="@+id/textGoalReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Erinnerung" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutGoalItemButtonArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp">
+
+        <ImageButton
+            android:id="@+id/buttonUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_edit_black"
+            android:text="@string/label_button_edit_goal"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp" />
+
+        <ImageButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:text="@string/label_button_delete_goal"
+            app:srcCompat="@drawable/ic_delete_forever_black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/GoalDurationArea"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/imageGoalCategory"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="-15dp"
+            android:layout_marginTop="3dp"
+            app:srcCompat="@drawable/ic_tag_small_foreground"
+            android:visibility="visible"
+            android:layout_marginEnd="-8dp" />
+
+        <TextView
+            android:id="@+id/textGoalCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:alpha=".75"
+            android:text="Kategorie"
+            android:maxLength="15"
+            android:textSize="12sp"
+            android:layout_marginEnd="10dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
