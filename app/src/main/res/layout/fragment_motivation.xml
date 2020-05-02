@@ -13,12 +13,24 @@
         android:layout_height="200dp"
         android:background="@drawable/bg_rounded"
         android:fontFamily="sans-serif"
-        android:textStyle="italic"
-        android:textSize="20sp"
         android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tipRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ZitatText"
+        app:layout_constraintVertical_bias="0.404" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
