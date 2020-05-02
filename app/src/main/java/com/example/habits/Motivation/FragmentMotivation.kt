@@ -2,26 +2,17 @@ package com.example.habits.Motivation
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.R
 import com.example.habits.ui.adapters.TipAdapter
 import kotlinx.android.synthetic.main.fragment_motivation.*
-import kotlinx.android.synthetic.main.tip_list_item.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
+
 /**
  * A simple [Fragment] subclass.
  */
@@ -43,19 +34,13 @@ class FragmentMotivation : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        val tipList = listOf<String>("Am Besten unterteilt man große Ziele in mehrere Teilziele, dadurch kann man eher Erfolge erzielen. Das motiviert und hilft am Ball zu bleiben.",
+        val tipList = arrayListOf<String>("Am Besten unterteilt man große Ziele in mehrere Teilziele, dadurch kann man eher Erfolge erzielen. Das motiviert und hilft am Ball zu bleiben.",
             "Der Fortschritt beim Ziele erreichen soll messbar sein.", "Im Optimalfall muss das Ziel durch eigene Aktionen erreichbar sein, denn Ziele die Fremdeinwirkung benötigen liegen nicht in deiner Kontrolle",
             "Ziele realistisch formulieren. \"2020 bin ich der erste Mensch auf dem Saturn\" ist kein gut formuliertes Ziel.", "Das Ziel hat ein Datum. Also eine klare Deadline, zu der es erreicht sein soll.",
             "Analysiere deinen Tagesablauf und überlege an welchen Stellen du Zeit verschwendest. Wenn du etwas unbedingt erreichen möchtest dann wirst du Zeit dazu finden.")
 
-        val tips: ArrayList<String> = ArrayList()
-
-        for (item in tipList){
-            tips.add(item)
-        }
-
-        tipRecyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false) // was "context: this" previously in the video, lets see if this works
-        tipRecyclerView.adapter = TipAdapter(tips)
+        tipRecyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+        tipRecyclerView.adapter = TipAdapter(tipList)
 
         val motivationList = listOf<String>(
             "Niemand, der sein Bestes gegeben hat, hat es später bereut.", "Dein Körper kann alles schaffen. Es ist dein Geist, den du überzeugen musst.",
@@ -76,7 +61,7 @@ class FragmentMotivation : Fragment() {
             "Das Schicksal liegt nicht in der Hand des Zufalls, es liegt in deiner Hand, du sollst nicht darauf warten, du sollst es bezwingen.",
             "Wer den Hafen nicht kennt, in den er segeln will, für den ist kein Wind ein günstiger.", "Es ist besser, ein kleines Licht anzuzünden, als über die Dunkelheit zu schimpfen."
         ).random()
-        ZitatText.text = "\"" + motivationList + "\""
+        motivationText.text = "\"" + motivationList + "\""
 
         // gets the current date as well as yesterday's date and checks if they are the same. (checks if we have a new day)
         /*
