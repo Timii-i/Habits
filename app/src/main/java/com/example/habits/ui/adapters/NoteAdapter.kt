@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.habits.*
 import com.example.habits.Notes.EditNoteActivity
 import com.example.habits.Notes.FragmentNotes.Companion.noteList
 import com.example.habits.Notes.Note
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.note_list_item.view.*
 
 class NoteAdapter (private val items: ArrayList<Note>, private val context: Context?): RecyclerView.Adapter<NoteViewHolder>() {
@@ -49,6 +51,7 @@ class NoteAdapter (private val items: ArrayList<Note>, private val context: Cont
             alertDialog.setPositiveButton("OK", object: DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     noteList.removeAt(position)
+                    deleteNote()
                     notifyDataSetChanged()
                 }
             })
@@ -66,6 +69,17 @@ class NoteAdapter (private val items: ArrayList<Note>, private val context: Cont
             EditNoteActivity.position = position
             context?.startActivity(Intent(context, EditNoteActivity::class.java))
         }
+    }
+
+    // Function to delete the element from noteList and save it into SharedPreferences
+    private fun deleteNote() {
+        val sharedPreferences: SharedPreferences = context!!.getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(noteList)
+        editor.putString("notes", json)
+        editor.apply()
+
     }
 }
 

@@ -92,6 +92,7 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
             alertDialog.setPositiveButton("OK", object: DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     goalList.removeAt(position)
+                    deleteGoal()
                     notifyDataSetChanged()
                 }
             })
@@ -109,6 +110,17 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
             EditGoalActivity.position = position
             context?.startActivity(Intent(context, EditGoalActivity::class.java))
         }
+    }
+
+    // Function to delete the element goalList and save into SharedPreferences
+    private fun deleteGoal() {
+        val sharedPreferences: SharedPreferences = context!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(goalList)
+        editor.putString("goals", json)
+        editor.apply()
+
     }
 }
 
