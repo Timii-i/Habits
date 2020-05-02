@@ -106,6 +106,7 @@ class CreateGoalActivity() : AppCompatActivity() {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
                 Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
 
+                Log.i("tim", "goalReminder: $goalReminder")
                 // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
                 goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString()), goalCategory, goalColor))
 

@@ -11,7 +11,6 @@ import com.example.habits.Notes.FragmentNotes.Companion.noteList
 import com.example.habits.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.create_note.*
-import java.util.*
 
 class CreateNoteActivity : AppCompatActivity() {
 

@@ -6,10 +6,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.edit_goal.*
@@ -29,6 +31,9 @@ class EditGoalActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_goal)
+
+        // Sets the individual text fields to the content of the goal from that position
+        setFields()
 
         // Set date and open calender
         val cal = Calendar.getInstance()
@@ -118,8 +123,8 @@ class EditGoalActivity() : AppCompatActivity() {
                         goalColor
                     )
 
-                // Edits/Deletes goal in sharedPreferencs
-                editSavedGoals()
+                // Edits goal in sharedPreferencs
+                editSavedGoal()
 
                 finish()
             } else {
@@ -166,8 +171,35 @@ class EditGoalActivity() : AppCompatActivity() {
         })
     }
 
+    private fun setFields() {
+        ZielNameEingabe.setText(goalList[position].Name)
+        ZielDauerAnzeige.setText(goalList[position].Duration)
+        when(goalList[position].Reminder) {
+            "Garnicht" -> ZielErinnerungRadioGroup.check(2131230744)
+            "Täglich" -> ZielErinnerungRadioGroup.check(2131230746)
+            "Wöchentlich" -> ZielErinnerungRadioGroup.check(2131230747)
+            "Monatlich" -> ZielErinnerungRadioGroup.check(2131230745)
+            else -> ZielErinnerungRadioGroup.check(2131230744)
+        }
+        ZielKategorieEingabe.setText(goalList[position].Category)
+        when(goalList[position].Color) {
+            "Standard" -> {checkColor(ZielFarbeÄndernStandard)
+                color = "Standard"}
+            "Blau" -> {checkColor(ZielFarbeÄndernBlau)
+                color = "Blau"}
+            "Rot" -> {checkColor(ZielFarbeÄndernRot)
+                color = "Rot"}
+            "Orange" -> {checkColor(ZielFarbeÄndernOrange)
+                color = "Orange"}
+            "Grau" -> {checkColor(ZielFarbeÄndernGrau)
+                color = "Grau"}
+            else -> {checkColor(ZielFarbeÄndernStandard)
+                color = ""}
+        }
+    }
+
     // Function to edit/delete the goalList into SharedPreferences
-    private fun editSavedGoals() {
+    private fun editSavedGoal() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()

@@ -245,7 +245,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/button_standard"
-            android:text="✔"
+            android:text=""
             android:textColor="#535353"/>
 
         <Button

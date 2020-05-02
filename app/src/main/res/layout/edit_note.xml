@@ -57,6 +57,7 @@
         android:layout_marginBottom="328dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxWidth="500dp"
         app:layout_constraintBottom_toTopOf="@+id/NotizÄndernClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
