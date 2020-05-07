@@ -53,6 +53,15 @@ class FragmentNotes : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        // Shows the text if no notes are currently in the noteList
+        if (noteList.isNotEmpty()) {
+            noteEmptyListTitle.visibility = View.INVISIBLE
+            noteEmptyListText.visibility = View.INVISIBLE
+        } else {
+            noteEmptyListTitle.visibility = View.VISIBLE
+            noteEmptyListText.visibility = View.VISIBLE
+        }
+
         rv_note_list.layoutManager = LinearLayoutManager(activity)
         rv_note_list.adapter = NoteAdapter(
             noteList,
@@ -75,56 +84,6 @@ class FragmentNotes : Fragment() {
         // The List where the Notes are saved to show in the "Notizen" Tab
         var noteList: ArrayList<Note> = ArrayList()
 
-        fun addNotes() {
-            noteList.add(
-                Note(
-                    "adadada",
-                    "Garnicht"
-                )
-            )
-            noteList.add(
-                Note(
-                    "123",
-                    "Täglich"
-                )
-            )
-            noteList.add(
-                Note(
-                    "xccxc",
-                    "Monatlich"
-                )
-            )
-            noteList.add(
-                Note(
-                    "232323232",
-                    "Wöchentlich"
-                )
-            )
-            noteList.add(
-                Note(
-                    "hfghfhfh",
-                    "Monatlich"
-                )
-            )
-            noteList.add(
-                Note(
-                    "werwrwrwrw",
-                    "Garnicht"
-                )
-            )
-            noteList.add(
-                Note(
-                    "rwr",
-                    "Monatlich"
-                )
-            )
-            noteList.add(
-                Note(
-                    "vnvnvnvnvn",
-                    "Täglich"
-                )
-            )
-        }
 
         fun newInstance() = FragmentNotes()
     }
