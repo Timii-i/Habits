@@ -45,10 +45,12 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:maxLines="20"
+        app:layout_constraintBottom_toTopOf="@+id/NotizHinzufügenClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NotizInhalt" />
+        app:layout_constraintTop_toBottomOf="@+id/NotizInhalt"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/NotizInhalt"
