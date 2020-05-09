@@ -36,8 +36,6 @@ class EditNoteActivity() : AppCompatActivity() {
 
             // Checks if the input fields are empty or not
             if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty() && noteName.trim().length <= 35) {
-                Toast.makeText(applicationContext, "NotizName: $noteName \nNotizInhalt: $noteContent", Toast.LENGTH_SHORT).show()
-
                 FragmentNotes.noteList[position] =
                     Note(
                         noteName,
@@ -50,10 +48,10 @@ class EditNoteActivity() : AppCompatActivity() {
                 finish()
             } else {
                 if(noteName.trim().isEmpty()) {
-                    NotizTitel.error = "Fehlende Eingabe"
+                    NotizTitel.error = getString(R.string.missing_input)
                 }
                 if(noteContent.trim().isEmpty()) {
-                    NotizTitelEingabe.error = "Fehlende Eingabe"
+                    NotizTitelEingabe.error = getString(R.string.missing_input)
                 }
             }
         }
@@ -68,7 +66,7 @@ class EditNoteActivity() : AppCompatActivity() {
 
             override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielNameText.trim().length > 35) {
-                    NotizTitelEingabe.error = "Zu langer Name"
+                    NotizTitelEingabe.error = getString(R.string.lengthy_name)
                 }
             }
         })
@@ -81,11 +79,11 @@ class EditNoteActivity() : AppCompatActivity() {
 
     // Function to save the noteList into SharedPreferences
     private fun editSavedNote() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences(getString(R.string.note_preferences_name), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(FragmentNotes.noteList)
-        editor.putString("notes", json)
+        editor.putString(getString(R.string.notes_key), json)
         editor.apply()
 
     }

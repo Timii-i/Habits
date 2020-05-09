@@ -38,7 +38,7 @@ class FragmentMotivation : Fragment() {
         super.onStart()
 
         // Reads the tip strings from "tipList.txt" in assets
-        val tipList = ArrayList(context!!.assets.open("tipList.txt").bufferedReader().use {
+        val tipList = ArrayList(context!!.assets.open(getString(R.string.tip_list_filename)).bufferedReader().use {
             it.readLines()
         })
 
@@ -47,14 +47,12 @@ class FragmentMotivation : Fragment() {
 
 
         // Reads the motivation strings from "motivationList.txt" in assets
-        val motivationList = context!!.assets.open("motivationList.txt").bufferedReader().use {
+        val motivationList = context!!.assets.open(getString(R.string.motivation_list_filename)).bufferedReader().use {
             it.readLines()
         }.random()
 
         motivationText.text = motivationList
         //Log.i("tim", "File: $motivationList")
-
-
 
         // gets the current date as well as yesterday's date and checks if they are the same. (checks if we have a new day)
         /*

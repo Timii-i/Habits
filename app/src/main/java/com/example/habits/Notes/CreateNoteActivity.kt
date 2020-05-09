@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.Notes.FragmentNotes.Companion.noteList
 import com.example.habits.R
@@ -33,11 +32,6 @@ class CreateNoteActivity : AppCompatActivity() {
 
             // Checks if the input fields are empty or not
             if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty() && noteName.trim().length <= 35) {
-                Toast.makeText(
-                    applicationContext,
-                    "NotizName: $noteName \nNotizInhalt: $noteContent \n",
-                    Toast.LENGTH_SHORT
-                ).show()
 
                 // Adds the user input from create_note into noteList to display it in the "Notizen" Tab
                 noteList.add(Note(noteName, noteContent))
@@ -48,10 +42,10 @@ class CreateNoteActivity : AppCompatActivity() {
                 finish()
             } else {
                 if (noteName.trim().isEmpty()) {
-                    NotizNameEingabe.error = "Fehlende Eingabe"
+                    NotizNameEingabe.error = getString(R.string.missing_input)
                 }
                 if (noteContent.trim().isEmpty()) {
-                    NotizInhaltEingabe.error = "Fehlende Eingabe"
+                    NotizInhaltEingabe.error = getString(R.string.missing_input)
                 }
             }
         }
@@ -66,7 +60,7 @@ class CreateNoteActivity : AppCompatActivity() {
 
             override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielNameText.trim().length > 35) {
-                    NotizNameEingabe.error = "Zu langer Name"
+                    NotizNameEingabe.error = getString(R.string.lengthy_name)
                 }
             }
         })
@@ -74,11 +68,11 @@ class CreateNoteActivity : AppCompatActivity() {
 
     // Function to save the noteList into SharedPreferences
     private fun saveNotes() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences(getString(R.string.note_preferences_name), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(noteList)
-        editor.putString("notes", json)
+        editor.putString(getString(R.string.notes_key), json)
         editor.apply()
 
     }
