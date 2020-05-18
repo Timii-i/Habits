@@ -61,31 +61,31 @@ class CreateGoalActivity() : AppCompatActivity() {
 
         // Actions when a color is pressed
         ZielFarbeStandard.setOnClickListener {
-            color = "Standard"
+            color = getString(R.string.goal_color_standard)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeOrange, ZielFarbeGrau)
             checkColor(ZielFarbeStandard)
         }
         ZielFarbeBlau.setOnClickListener {
-            color = "Blau"
+            color = getString(R.string.goal_color_blue)
 
             uncheckColors(ZielFarbeStandard, ZielFarbeRot, ZielFarbeOrange, ZielFarbeGrau)
             checkColor(ZielFarbeBlau)
         }
         ZielFarbeRot.setOnClickListener {
-            color = "Rot"
+            color = getString(R.string.goal_color_red)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeStandard, ZielFarbeOrange, ZielFarbeGrau)
             checkColor(ZielFarbeRot)
         }
         ZielFarbeOrange.setOnClickListener {
-            color = "Orange"
+            color = getString(R.string.goal_color_orange)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeStandard, ZielFarbeGrau)
             checkColor(ZielFarbeOrange)
         }
         ZielFarbeGrau.setOnClickListener {
-            color = "Grau"
+            color = getString(R.string.goal_color_gray)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeOrange, ZielFarbeStandard)
             checkColor(ZielFarbeGrau)
@@ -112,7 +112,6 @@ class CreateGoalActivity() : AppCompatActivity() {
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1 && goalName.trim().length <= 35 && goalCategory.trim().length <= 15) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
                 val goalReminderNameString: String = goalReminderName.text.toString()
-                //Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
 
                 // Generates a pseudo random ID for each goal (returns an int between 0 and 999999 (including))
                 val goalId: Int = (0..999999).random()
@@ -129,7 +128,7 @@ class CreateGoalActivity() : AppCompatActivity() {
                     ))
 
                 // Sets a new Notification if any Reminder but "Garnicht" is clicked
-                if (goalReminderNameString != "Garnicht") {
+                if (goalReminderNameString != getString(R.string.goal_reminder_none)) {
                     startAlarm(goalReminderNameString, goalId)
                 }
 
@@ -140,13 +139,13 @@ class CreateGoalActivity() : AppCompatActivity() {
 
             } else {
                 if(goalName.trim().isEmpty()) {
-                    ZielName.error = "Fehlende Eingabe"
+                    ZielName.error = getString(R.string.missing_input)
                 }
                 if(goalDuration.trim().isEmpty()) {
-                    ZielDauer.error = "Fehlende Eingabe"
+                    ZielDauer.error = getString(R.string.missing_input)
                 }
                 if(goalReminder == -1) {
-                    ZielErinnerung.error = "Fehlende Eingabe"
+                    ZielErinnerung.error = getString(R.string.missing_input)
                 }
             }
         }
@@ -159,7 +158,7 @@ class CreateGoalActivity() : AppCompatActivity() {
 
             override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielNameText.trim().length > 35) {
-                    ZielNameEingabe.error = "Zu langer Name"
+                    ZielNameEingabe.error = getString(R.string.lengthy_name)
                 }
             }
         })
@@ -172,7 +171,7 @@ class CreateGoalActivity() : AppCompatActivity() {
 
             override fun onTextChanged(zielKategorieText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielKategorieText.trim().length > 15) {
-                    ZielKategorieEingabe.error = "Zu langer Kategoriename"
+                    ZielKategorieEingabe.error = getString(R.string.lengthy_category)
                 }
             }
         })
@@ -189,17 +188,16 @@ class CreateGoalActivity() : AppCompatActivity() {
         when(reminder) {
 
             // Daily alarm
-            "Täglich" -> {
+            getString(R.string.goal_reminder_daily) -> {
                 val calendar: Calendar = Calendar.getInstance().apply {
                     add(Calendar.DAY_OF_YEAR, 1)
                 }
 
-                Log.i("tim", "triggerat: ${Date()}")
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
             }
 
             // Weekly alarm
-            "Wöchentlich" -> {
+            getString(R.string.goal_reminder_weekly) -> {
                 val calendar: Calendar = Calendar.getInstance().apply {
                     add(Calendar.WEEK_OF_YEAR, 1)
                 }
@@ -209,7 +207,7 @@ class CreateGoalActivity() : AppCompatActivity() {
             }
 
             // Monthly alarm
-            "Monatlich" -> {
+            getString(R.string.goal_reminder_monthly) -> {
                 val calendar: Calendar = Calendar.getInstance().apply {
                     add(Calendar.MONTH, 1)
                 }
@@ -222,11 +220,11 @@ class CreateGoalActivity() : AppCompatActivity() {
 
     // Function to save the goalList into SharedPreferences
     private fun saveGoals() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(goalList)
-        editor.putString("goals", json)
+        editor.putString(getString(R.string.goals_key), json)
         editor.apply()
 
     }

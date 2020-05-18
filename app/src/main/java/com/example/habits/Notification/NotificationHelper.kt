@@ -11,12 +11,11 @@ import androidx.core.app.NotificationCompat
 import com.example.habits.R
 
 // Helper class to build the notification
-class NotificationHelper(private val base: Context?): ContextWrapper(base) {
-    private val channelID = "channelID"
-    private val channelName = "Channel Name"
+class NotificationHelper(base: Context?): ContextWrapper(base) {
+    private val channelID = getString(R.string.goal_notification_channel_id)
+    private val channelName = getString(R.string.goal_notification_channel_name)
 
     private var mManager: NotificationManager? = null
-
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -41,8 +40,8 @@ class NotificationHelper(private val base: Context?): ContextWrapper(base) {
     @RequiresApi(Build.VERSION_CODES.O)
     fun getChannelNotification(): NotificationCompat.Builder {
         return NotificationCompat.Builder(applicationContext, channelID)
-            .setContentTitle("Erinnerung")
-            .setContentText("Du hast noch ein Ziel vor dir")
+            .setContentTitle(getString(R.string.goal_notification_title))
+            .setContentText(getString(R.string.goal_notification_text))
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setAutoCancel(true)

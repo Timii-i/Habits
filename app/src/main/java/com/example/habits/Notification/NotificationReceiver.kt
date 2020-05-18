@@ -17,6 +17,5 @@ class NotificationReceiver: BroadcastReceiver() {
         val notificationHelper = NotificationHelper(context)
         val nb = notificationHelper.getChannelNotification()
         notificationHelper.getManager()!!.notify(1, nb.build())
-        Log.i("tim", "Reciever: ${Date()}")
     }
 }

@@ -170,7 +170,7 @@ class EditGoalActivity() : AppCompatActivity() {
 
             override fun onTextChanged(zielKategorieText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielKategorieText.trim().length > 15) {
-                    ZielNameEingabe.error = getString(R.string.lengthy_name)
+                    ZielNameEingabe.error = getString(R.string.lengthy_category)
                 }
             }
         })
