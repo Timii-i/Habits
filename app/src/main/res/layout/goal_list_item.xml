@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        android:text="@string/goal_test_title"
         android:maxLength="35"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Dauer" />
+            android:text="@string/goal_display_duration" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Erinnerung" />
+            android:text="@string/goal_display_reminder" />
     </LinearLayout>
 
     <LinearLayout
@@ -131,7 +131,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:alpha=".75"
-            android:text="Kategorie"
+            android:text="@string/goal_display_category"
             android:maxLength="15"
             android:textSize="12sp"
             android:layout_marginEnd="10dp"/>

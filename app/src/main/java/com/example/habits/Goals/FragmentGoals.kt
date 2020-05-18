@@ -21,16 +21,13 @@ import java.lang.reflect.Type
 import kotlin.collections.ArrayList
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class FragmentGoals : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Calls the function to load the goals if there are any
-        val sharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
-        if(sharedPreferences.contains("goals")) {
+        val sharedPreferences = this.activity!!.getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
+        if(sharedPreferences.contains(getString(R.string.goals_key))) {
             loadGoals()
         }
 
@@ -75,9 +72,9 @@ class FragmentGoals : Fragment() {
 
     // Function to load in the saved Goals from sharedPreferences
     private fun loadGoals() {
-        val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
         val gson = Gson()
-        val json = sharedPreferences.getString("goals", null)
+        val json = sharedPreferences.getString(getString(R.string.goals_key), null)
         val type: Type = object: TypeToken<ArrayList<Goal>>() {}.type
         goalList = gson.fromJson(json, type)
 

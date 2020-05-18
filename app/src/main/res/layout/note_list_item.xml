@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="Notiztitel"
+        android:text="@string/note_test_title"
         android:textSize="15sp"
         android:maxLength="35"
         android:textStyle="bold"
@@ -30,7 +30,7 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="6"
-        android:text="Notizinhalt" />
+        android:text="@string/note_test_content" />
 
     <LinearLayout
         android:id="@+id/layoutNoteItemButtonArea"

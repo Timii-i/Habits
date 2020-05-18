@@ -1,20 +1,75 @@
 <resources>
-    <string name="app_name">Habits</string>
-    <string name="tab_text_goals">Ziele</string>
-    <string name="tab_text_notes">Notizen</string>
-    <string name="tab_text_tips">Motivation</string>
 
+    <!--GOAL RESSOURCES -->
+
+    <string name="tab_text_goals">Ziele</string>
     <string name="label_button_edit_goal">Update</string>
     <string name="label_button_delete_goal">Delete</string>
-
-    <string name ="dialog_delete_note_Name">Lösche Ziel</string>
-    <string name="dialog_delete_note_confirmation">Bist du sicher das du das Ziel löschen möchtest</string>
-    <string name="dialog_delete_note_deleted">Ziel gelöscht!</string>
-
     <string name="dialog_delete_goal_title">Lösche Ziel</string>
     <string name="dialog_delete_goal_confirmation">Bist du sicher das du das Ziel löschen möchtest</string>
     <string name="dialog_delete_goal_deleted">Ziel gelöscht!</string>
-
     <string name="activity_goal_button_update">Update</string>
     <string name="activity_goal_button_cancel">Abbrechen</string>
+    <string name="goal_reminder_none">Garnicht</string>
+    <string name="goal_color_standard">Standard</string>
+    <string name="goal_color_blue">Blau</string>
+    <string name="goal_color_red">Rot</string>
+    <string name="goal_color_orange">Orange</string>
+    <string name="goal_color_gray">Grau</string>
+    <string name="goal_preferences_name">goalPreferences</string>
+    <string name="goals_key">goals</string>
+    <string name="goal_date_format">dd.MM.yyyy</string>
+    <string name="goal_reminder_daily">Täglich</string>
+    <string name="goal_reminder_weekly">Wöchentlich</string>
+    <string name="goal_reminder_monthly">Monatlich</string>
+    <string name="your_goal">Dein Ziel:</string>
+    <string name="goal_completion_time">Bis wann willst du dein Ziel erriecht haben ?</string>
+    <string name="goal_reminder_timer">Wie oft möchtest du an dein Ziel erinnert werden ?</string>
+    <string name="goal_category_optional">Kategorie (optional):</string>
+    <string name="goal_color_desc">Farbe:</string>
+    <string name="goal_add_button_desc">Hinzufügen</string>
+    <string name="goal_edit_button_desc">Änderungen speichern</string>
+    <string name="goal_information_text_title">Du hast bisher noch kein Ziel</string>
+    <string name="goal_information_text_content">Anscheinend hast du noch kein Ziel erstellt.\nDrücke einfach auf das + um dein erstes Ziel zu erstellen</string>
+    <string name="goal_test_title">Name</string>
+    <string name="goal_display_duration">Dauer</string>
+    <string name="goal_display_reminder">Erinnerung</string>
+    <string name="goal_display_category">Kategorie</string>
+
+
+    <!--NOTE RESSOURCES -->
+
+    <string name="tab_text_notes">Notizen</string>
+    <string name="dialog_delete_note_Name">Lösche Ziel</string>
+    <string name="dialog_delete_note_confirmation">Bist du sicher das du das Ziel löschen möchtest</string>
+    <string name="dialog_delete_note_deleted">Ziel gelöscht!</string>
+    <string name="your_note_titel">Titel:</string>
+    <string name="your_note_content">Inhalt:</string>
+    <string name="note_information_text_title">Du hast bisher noch keine Notiz</string>
+    <string name="note_information_text_content">Anscheinend hast du noch keine Notiz erstellt.\n Drücke einfach auf das + um deine erste Notiz zu erstellen</string>
+    <string name="note_test_title">Notiztitel</string>
+    <string name="note_test_content">Notizinhalt</string>
+    <string name="note_preferences_name">notePreferences</string>
+    <string name="notes_key">notes</string>
+
+    <!--MOTIVATION RESSOURCES -->
+
+    <string name="motivation_list_filename">motivationList.txt</string>
+    <string name="motivation_headline">Motivation</string>
+    <string name="motivation_tips_headline">Tipps</string>
+    <string name="motivation_tiplist_test_text">default text</string>
+    <string name="tip_list_filename">tipList.txt</string>
+    <string name="tab_text_tips">Motivation</string>
+
+    <!--MISCELLANEOUS RESSOURCES-->
+
+    <string name="app_name">Habits</string>
+    <string name="missing_input">Fehlende Eingabe</string>
+    <string name="lengthy_name">Zu langer Name</string>
+    <string name="dialog_alert_positive">OK</string>
+    <string name="dialog_alert_negative">Abbrechen</string>
+    <string name="lengthy_category">Zu langer Kategoriename</string>
+    <string name="date_button_desc">Datum</string>
+
+
 </resources>

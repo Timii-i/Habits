@@ -7,7 +7,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
+import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
         // Sets the Name, Duration and Reminder of each element in the RecyclerView
         holder.tvGoalName.text = items[position].Name
         holder.tvGoalDuration.text = items[position].Duration
-        if (items[position].Reminder == "Garnicht") {
+        if (items[position].Reminder == context!!.getString(R.string.goal_reminder_none)) {
             holder.tvGoalReminder.text = " - "
         } else {
             holder.tvGoalReminder.text = items[position].Reminder
@@ -60,19 +61,19 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
 
     // Function to set the background for each goal
     private fun setBackground(holder: GoalViewHolder, position: Int) {
-        if (items[position].Color == "" || items[position].Color == "Standard") {
+        if (items[position].Color == "" || items[position].Color == context!!.getString(R.string.goal_color_standard)) {
             holder.layout.setBackgroundResource(R.drawable.button_standard)
 
-        } else if (items[position].Color == "Blau") {
+        } else if (items[position].Color == context.getString(R.string.goal_color_blue)) {
             holder.layout.setBackgroundResource(R.drawable.button_blue)
 
-        } else if (items[position].Color == "Rot") {
+        } else if (items[position].Color == context.getString(R.string.goal_color_red)) {
             holder.layout.setBackgroundResource(R.drawable.button_red)
 
-        } else if (items[position].Color == "Orange") {
+        } else if (items[position].Color == context.getString(R.string.goal_color_orange)) {
             holder.layout.setBackgroundResource(R.drawable.button_orange)
 
-        } else if (items[position].Color == "Grau") {
+        } else if (items[position].Color == context.getString(R.string.goal_color_gray)) {
             holder.layout.setBackgroundResource(R.drawable.button_gray)
 
         }
@@ -87,7 +88,7 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
             alertDialog.setMessage(R.string.dialog_delete_goal_confirmation)
 
             // If the user presses "OK" the goal gets deleted
-            alertDialog.setPositiveButton("OK", object: DialogInterface.OnClickListener {
+            alertDialog.setPositiveButton(context!!.getString(R.string.dialog_alert_positive), object: DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     cancelAlarm(holder, position)
                     goalList.removeAt(position)
@@ -97,7 +98,7 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
             })
 
             // If the user presses "Abbrechen" the AlertBox closes and nothing happens
-            alertDialog.setNegativeButton("Abbrechen", null)
+            alertDialog.setNegativeButton(context.getString(R.string.dialog_alert_negative), null)
 
             alertDialog.show()
         }
@@ -125,11 +126,11 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
 
     // Function to delete the element goalList and save into SharedPreferences
     private fun deleteSavedGoal() {
-        val sharedPreferences: SharedPreferences = context!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = context!!.getSharedPreferences(context.getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(goalList)
-        editor.putString("goals", json)
+        editor.putString(context.getString(R.string.goals_key), json)
         editor.apply()
     }
 }

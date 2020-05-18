@@ -5,11 +5,14 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.*
 import com.example.habits.Notes.EditNoteActivity
@@ -48,7 +51,8 @@ class NoteAdapter (private val items: ArrayList<Note>, private val context: Cont
             alertDialog.setMessage(R.string.dialog_delete_note_confirmation)
 
             // If the user presses "OK" the goal gets deleted
-            alertDialog.setPositiveButton("OK", object: DialogInterface.OnClickListener {
+            alertDialog.setPositiveButton(context!!.getString(R.string.dialog_alert_positive), object: DialogInterface.OnClickListener {
+                @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     noteList.removeAt(position)
                     deleteNote()
@@ -57,7 +61,7 @@ class NoteAdapter (private val items: ArrayList<Note>, private val context: Cont
             })
 
             // If the user presses "Abbrechen" the AlertBox closes and nothing happens
-            alertDialog.setNegativeButton("Abbrechen", null)
+            alertDialog.setNegativeButton(context.getString(R.string.dialog_alert_negative), null)
 
             alertDialog.show()
         }
@@ -72,12 +76,13 @@ class NoteAdapter (private val items: ArrayList<Note>, private val context: Cont
     }
 
     // Function to delete the element from noteList and save it into SharedPreferences
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun deleteNote() {
-        val sharedPreferences: SharedPreferences = context!!.getSharedPreferences("notePreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = context!!.getSharedPreferences(R.string.note_preferences_name.toString(), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(noteList)
-        editor.putString("notes", json)
+        editor.putString(R.string.notes_key.toString(), json)
         editor.apply()
 
     }
