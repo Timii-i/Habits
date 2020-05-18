@@ -1,5 +1,6 @@
 package com.example.habits.Goals
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -112,15 +113,20 @@ class EditGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1 && goalName.trim().length <= 35 && goalCategory.trim().length <= 15) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
+                val goalReminderNameString: String = goalReminderName.text.toString()
+                //Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
 
-                FragmentGoals.goalList[position] =
+                val goalId: Int = goalList[position].ID
+
+                // Changes the goal object at the position in goalList
+                goalList[position] =
                     Goal(
                         goalName,
                         goalDuration,
-                        goalReminderName.text.toString(),
+                        goalReminderNameString,
                         goalCategory,
-                        goalColor
+                        goalColor,
+                        goalId
                     )
 
                 // Edits goal in sharedPreferencs
@@ -171,6 +177,8 @@ class EditGoalActivity() : AppCompatActivity() {
         })
     }
 
+    // Function to set the individual input fields to the goal attributes
+    @SuppressLint("ResourceType")
     private fun setFields() {
         ZielNameEingabe.setText(goalList[position].Name)
         ZielDauerAnzeige.setText(goalList[position].Duration)

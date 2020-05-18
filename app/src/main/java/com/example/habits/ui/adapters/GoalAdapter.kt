@@ -1,12 +1,13 @@
 package com.example.habits.ui.adapters
 
+import android.app.AlarmManager
 import android.app.AlertDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,17 +15,14 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.Goals.EditGoalActivity
-import com.example.habits.Goals.FragmentGoals
 import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.Goals.Goal
+import com.example.habits.Notification.NotificationReceiver
 import com.example.habits.R
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.goal_list_item.view.*
-import java.lang.reflect.Type
 
 
 class GoalAdapter (private var items: ArrayList<Goal>, private val context: Context?): RecyclerView.Adapter<GoalViewHolder>() {
@@ -91,8 +89,9 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
             // If the user presses "OK" the goal gets deleted
             alertDialog.setPositiveButton("OK", object: DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface?, which: Int) {
+                    cancelAlarm(holder, position)
                     goalList.removeAt(position)
-                    deleteGoal()
+                    deleteSavedGoal()
                     notifyDataSetChanged()
                 }
             })
@@ -104,6 +103,18 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
         }
     }
 
+    // Function to cancel the alarm for the deleted goal
+    private fun cancelAlarm(holder: GoalViewHolder, position: Int) {
+        // Set the id to use in pendingIntent to the ID from the goal deleted
+        val goalId: Int = goalList[position].ID
+
+        val alarmManager: AlarmManager = this.context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent: Intent = Intent(holder.itemView.context, NotificationReceiver::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(holder.itemView.context, goalId, intent, 0)
+
+        alarmManager.cancel(pendingIntent)
+    }
+
     // Function to set up the edit button and open EditGoalActivity when edit button is pressed
     private fun setEditButton(holder: GoalViewHolder, position: Int) {
         holder.btnUpdate.setOnClickListener {
@@ -113,14 +124,13 @@ class GoalAdapter (private var items: ArrayList<Goal>, private val context: Cont
     }
 
     // Function to delete the element goalList and save into SharedPreferences
-    private fun deleteGoal() {
+    private fun deleteSavedGoal() {
         val sharedPreferences: SharedPreferences = context!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(goalList)
         editor.putString("goals", json)
         editor.apply()
-
     }
 }
 

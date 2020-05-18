@@ -1,21 +1,27 @@
 package com.example.habits.Goals
 
-import android.app.DatePickerDialog
+import android.app.*
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.habits.Goals.FragmentGoals.Companion.goalList
+import com.example.habits.MainActivity
+import com.example.habits.Notification.NotificationReceiver
 import com.example.habits.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.create_goal.*
-import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +29,7 @@ import java.util.*
 class CreateGoalActivity() : AppCompatActivity() {
     private var color: String = ""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_goal)
@@ -104,16 +111,33 @@ class CreateGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1 && goalName.trim().length <= 35 && goalCategory.trim().length <= 15) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
+                val goalReminderNameString: String = goalReminderName.text.toString()
+                //Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
 
-                Log.i("tim", "goalReminder: $goalReminder")
+                // Generates a pseudo random ID for each goal (returns an int between 0 and 999999 (including))
+                val goalId: Int = (0..999999).random()
+
                 // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
-                goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString()), goalCategory, goalColor))
+                goalList.add(
+                    Goal(
+                        goalName,
+                        goalDuration,
+                        goalReminderNameString,
+                        goalCategory,
+                        goalColor,
+                        goalId
+                    ))
+
+                // Sets a new Notification if any Reminder but "Garnicht" is clicked
+                if (goalReminderNameString != "Garnicht") {
+                    startAlarm(goalReminderNameString, goalId)
+                }
 
                 // Saves the goalList into sharedPreferences
                 saveGoals()
 
                 finish()
+
             } else {
                 if(goalName.trim().isEmpty()) {
                     ZielName.error = "Fehlende Eingabe"
@@ -129,11 +153,9 @@ class CreateGoalActivity() : AppCompatActivity() {
 
         // Action when the goal name is longer than 35 characters
         ZielNameEingabe.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielNameText.trim().length > 35) {
@@ -144,18 +166,58 @@ class CreateGoalActivity() : AppCompatActivity() {
 
         // Action when the goal category is longer than 15 characters
         ZielKategorieEingabe.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(zielKategorieText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielKategorieText.trim().length > 15) {
-                    ZielNameEingabe.error = "Zu langer Kategoriename"
+                    ZielKategorieEingabe.error = "Zu langer Kategoriename"
                 }
             }
         })
+    }
+
+    // Function to create an alarm
+    private fun startAlarm(reminder: String, id: Int) {
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent: Intent = Intent(this, NotificationReceiver::class.java)
+        // requestCode muss unique sein für jeden Pendingintent
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, id, intent, 0)
+
+        // Set repeating Alarm
+        when(reminder) {
+
+            // Daily alarm
+            "Täglich" -> {
+                val calendar: Calendar = Calendar.getInstance().apply {
+                    add(Calendar.DAY_OF_YEAR, 1)
+                }
+
+                Log.i("tim", "triggerat: ${Date()}")
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+            }
+
+            // Weekly alarm
+            "Wöchentlich" -> {
+                val calendar: Calendar = Calendar.getInstance().apply {
+                    add(Calendar.WEEK_OF_YEAR, 1)
+                }
+
+                // Have to use setRepeating instead of setInexactRepeating because we can't use any of the constants for the interval
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, calendar.timeInMillis, pendingIntent)
+            }
+
+            // Monthly alarm
+            "Monatlich" -> {
+                val calendar: Calendar = Calendar.getInstance().apply {
+                    add(Calendar.MONTH, 1)
+                }
+
+                // Have to use setRepeating instead of setInexactRepeating because we can't use any of the constants for the interval
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, calendar.timeInMillis, pendingIntent)
+            }
+        }
     }
 
     // Function to save the goalList into SharedPreferences

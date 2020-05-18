@@ -25,7 +25,7 @@
         <activity android:name=".ui.adapters.SectionsPagerAdapter" />
         <activity android:name=".Goals.EditGoalActivity" />
         <activity android:name=".Notes.EditNoteActivity" />
-        <receiver android:name=".Notification.ReminderBroadcast" />
+        <receiver android:name=".Notification.NotificationReceiver" />
     </application>
 
 </manifest>

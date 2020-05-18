@@ -36,7 +36,7 @@ class EditNoteActivity() : AppCompatActivity() {
 
             // Checks if the input fields are empty or not
             if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty() && noteName.trim().length <= 35) {
-                Toast.makeText(applicationContext, "NotizName: $noteName \nNotizInhalt: $noteContent", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "NotizName: $noteName \nNotizInhalt: $noteContent", Toast.LENGTH_SHORT).show()
 
                 FragmentNotes.noteList[position] =
                     Note(

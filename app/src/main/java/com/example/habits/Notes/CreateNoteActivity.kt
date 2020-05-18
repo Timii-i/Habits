@@ -33,11 +33,6 @@ class CreateNoteActivity : AppCompatActivity() {
 
             // Checks if the input fields are empty or not
             if (noteName.trim().isNotEmpty() && noteContent.trim().isNotEmpty() && noteName.trim().length <= 35) {
-                Toast.makeText(
-                    applicationContext,
-                    "NotizName: $noteName \nNotizInhalt: $noteContent \n",
-                    Toast.LENGTH_SHORT
-                ).show()
 
                 // Adds the user input from create_note into noteList to display it in the "Notizen" Tab
                 noteList.add(Note(noteName, noteContent))
