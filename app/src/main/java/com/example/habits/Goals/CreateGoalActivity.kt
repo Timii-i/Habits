@@ -1,21 +1,27 @@
 package com.example.habits.Goals
 
-import android.app.DatePickerDialog
+import android.app.*
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.habits.Goals.FragmentGoals.Companion.goalList
+import com.example.habits.MainActivity
+import com.example.habits.Notification.NotificationReceiver
 import com.example.habits.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.create_goal.*
-import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +29,7 @@ import java.util.*
 class CreateGoalActivity() : AppCompatActivity() {
     private var color: String = ""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_goal)
@@ -54,31 +61,31 @@ class CreateGoalActivity() : AppCompatActivity() {
 
         // Actions when a color is pressed
         ZielFarbeStandard.setOnClickListener {
-            color = "Standard"
+            color = getString(R.string.goal_color_standard)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeOrange, ZielFarbeGrau)
             checkColor(ZielFarbeStandard)
         }
         ZielFarbeBlau.setOnClickListener {
-            color = "Blau"
+            color = getString(R.string.goal_color_blue)
 
             uncheckColors(ZielFarbeStandard, ZielFarbeRot, ZielFarbeOrange, ZielFarbeGrau)
             checkColor(ZielFarbeBlau)
         }
         ZielFarbeRot.setOnClickListener {
-            color = "Rot"
+            color = getString(R.string.goal_color_red)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeStandard, ZielFarbeOrange, ZielFarbeGrau)
             checkColor(ZielFarbeRot)
         }
         ZielFarbeOrange.setOnClickListener {
-            color = "Orange"
+            color = getString(R.string.goal_color_orange)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeStandard, ZielFarbeGrau)
             checkColor(ZielFarbeOrange)
         }
         ZielFarbeGrau.setOnClickListener {
-            color = "Grau"
+            color = getString(R.string.goal_color_gray)
 
             uncheckColors(ZielFarbeBlau, ZielFarbeRot, ZielFarbeOrange, ZielFarbeStandard)
             checkColor(ZielFarbeGrau)
@@ -104,66 +111,119 @@ class CreateGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1 && goalName.trim().length <= 35 && goalCategory.trim().length <= 15) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
+                val goalReminderNameString: String = goalReminderName.text.toString()
+
+                // Generates a pseudo random ID for each goal (returns an int between 0 and 999999 (including))
+                val goalId: Int = (0..999999).random()
 
                 // Adds the user input from create_goal into goalList to display it in the "Ziele" Tab
-                goalList.add(Goal(goalName, goalDuration, (goalReminderName.text.toString()), goalCategory, goalColor))
+                goalList.add(
+                    Goal(
+                        goalName,
+                        goalDuration,
+                        goalReminderNameString,
+                        goalCategory,
+                        goalColor,
+                        goalId
+                    ))
+
+                // Sets a new Notification if any Reminder but "Garnicht" is clicked
+                if (goalReminderNameString != getString(R.string.goal_reminder_none)) {
+                    startAlarm(goalReminderNameString, goalId)
+                }
 
                 // Saves the goalList into sharedPreferences
                 saveGoals()
 
                 finish()
+
             } else {
                 if(goalName.trim().isEmpty()) {
-                    ZielName.error = "Fehlende Eingabe"
+                    ZielName.error = getString(R.string.missing_input)
                 }
                 if(goalDuration.trim().isEmpty()) {
-                    ZielDauer.error = "Fehlende Eingabe"
+                    ZielDauer.error = getString(R.string.missing_input)
                 }
                 if(goalReminder == -1) {
-                    ZielErinnerung.error = "Fehlende Eingabe"
+                    ZielErinnerung.error = getString(R.string.missing_input)
                 }
             }
         }
 
         // Action when the goal name is longer than 35 characters
         ZielNameEingabe.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielNameText.trim().length > 35) {
-                    ZielNameEingabe.error = "Zu langer Name"
+                    ZielNameEingabe.error = getString(R.string.lengthy_name)
                 }
             }
         })
 
         // Action when the goal category is longer than 15 characters
         ZielKategorieEingabe.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(zielKategorieText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielKategorieText.trim().length > 15) {
-                    ZielNameEingabe.error = "Zu langer Kategoriename"
+                    ZielKategorieEingabe.error = getString(R.string.lengthy_category)
                 }
             }
         })
     }
 
+    // Function to create an alarm
+    private fun startAlarm(reminder: String, id: Int) {
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent: Intent = Intent(this, NotificationReceiver::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, id, intent, 0)
+
+        // Set repeating Alarm
+        when(reminder) {
+
+            // Daily alarm
+            getString(R.string.goal_reminder_daily) -> {
+                val calendar: Calendar = Calendar.getInstance().apply {
+                    add(Calendar.DAY_OF_YEAR, 1)
+                }
+
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+            }
+
+            // Weekly alarm
+            getString(R.string.goal_reminder_weekly) -> {
+                val calendar: Calendar = Calendar.getInstance().apply {
+                    add(Calendar.WEEK_OF_YEAR, 1)
+                }
+
+                // Have to use setRepeating instead of setInexactRepeating because we can't use any of the constants for the interval
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, calendar.timeInMillis, pendingIntent)
+            }
+
+            // Monthly alarm
+            getString(R.string.goal_reminder_monthly) -> {
+                val calendar: Calendar = Calendar.getInstance().apply {
+                    add(Calendar.MONTH, 1)
+                }
+
+                // Have to use setRepeating instead of setInexactRepeating because we can't use any of the constants for the interval
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, calendar.timeInMillis, pendingIntent)
+            }
+        }
+    }
+
     // Function to save the goalList into SharedPreferences
     private fun saveGoals() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(goalList)
-        editor.putString("goals", json)
+        editor.putString(getString(R.string.goals_key), json)
         editor.apply()
 
     }

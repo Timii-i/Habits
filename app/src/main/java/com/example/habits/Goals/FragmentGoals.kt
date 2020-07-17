@@ -3,11 +3,12 @@ package com.example.habits.Goals
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habits.R
@@ -17,20 +18,19 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_goals.*
 import kotlinx.android.synthetic.main.fragment_goals.view.*
 import java.lang.reflect.Type
+import kotlin.collections.ArrayList
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class FragmentGoals : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Calls the function to load the goals if there are any
-        val sharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
-        if(sharedPreferences.contains("goals")) {
+        val sharedPreferences = this.activity!!.getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
+        if(sharedPreferences.contains(getString(R.string.goals_key))) {
             loadGoals()
         }
+
     }
 
     override fun onCreateView(
@@ -49,8 +49,18 @@ class FragmentGoals : Fragment() {
     }
 
     // onStart
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
+
+        // Shows the text if no goals are currently in the goalList
+        if (goalList.isNotEmpty()) {
+            goalEmptyListTitle.visibility = View.INVISIBLE
+            goalEmptyListText.visibility = View.INVISIBLE
+        } else {
+            goalEmptyListTitle.visibility = View.VISIBLE
+            goalEmptyListText.visibility = View.VISIBLE
+        }
 
         // Loads the goals into the the view
         rv_goal_list.layoutManager = LinearLayoutManager(activity)
@@ -62,9 +72,9 @@ class FragmentGoals : Fragment() {
 
     // Function to load in the saved Goals from sharedPreferences
     private fun loadGoals() {
-        val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = this.activity!!.getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
         val gson = Gson()
-        val json = sharedPreferences.getString("goals", null)
+        val json = sharedPreferences.getString(getString(R.string.goals_key), null)
         val type: Type = object: TypeToken<ArrayList<Goal>>() {}.type
         goalList = gson.fromJson(json, type)
 
@@ -73,66 +83,6 @@ class FragmentGoals : Fragment() {
 companion object {
     // The List where the goals are saved to show in the "Ziele" Tab
     var goalList: ArrayList<Goal> = ArrayList()
-
-fun addGoals() {
-    goalList.add(
-        Goal(
-            "adadada",
-            "15.08.2020",
-            "Garnicht",
-            ""
-        )
-    )
-    goalList.add(
-        Goal(
-            "123",
-            "69.03.2069",
-            "Täglich",
-            "Haushalt",
-            "Blau"
-        )
-    )
-    goalList.add(
-        Goal(
-            "oigfnrsdig",
-            "69.03.2069",
-            "Monatlich",
-            "ExtremlangeKategorie",
-            "Rot"
-        )
-    )
-    goalList.add(
-        Goal(
-            "5357547",
-            "42.01.2420",
-            "Garnicht",
-            "Haushalt",
-            "Orange"
-        )
-    )
-    goalList.add(
-        Goal(
-            "Mein Ziel420",
-            "77.99.1366",
-            "Täglich",
-            "",
-            "Grau"
-        )
-    )
-}
-/*
-private const val ARG_GOALNAME = "goalname"
-private const val ARG_GOALDURATION = "goalduration"
-private const val ARG_GOALREMINDER = "goalreminder"
-
-fun newInstance(goalName: String, goalDuration: String, goalReminder: String) = FragmentGoals.apply() {
-    var arguments = bundleOf(
-        ARG_GOALNAME to goalName,
-        ARG_GOALDURATION to goalDuration,
-        ARG_GOALREMINDER to goalReminder
-    )
-}*/
-fun newInstance() = FragmentGoals()
 }
 
 }

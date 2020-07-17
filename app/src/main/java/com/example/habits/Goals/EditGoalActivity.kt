@@ -1,15 +1,18 @@
 package com.example.habits.Goals
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.habits.Goals.FragmentGoals.Companion.goalList
 import com.example.habits.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.edit_goal.*
@@ -29,6 +32,9 @@ class EditGoalActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_goal)
+
+        // Sets the individual text fields to the content of the goal from that position
+        setFields()
 
         // Set date and open calender
         val cal = Calendar.getInstance()
@@ -57,31 +63,31 @@ class EditGoalActivity() : AppCompatActivity() {
 
         // Actions when a color is pressed
         ZielFarbeÄndernStandard.setOnClickListener {
-            color = "Standard"
+            color = getString(R.string.goal_color_standard)
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
             checkColor(ZielFarbeÄndernStandard)
         }
         ZielFarbeÄndernBlau.setOnClickListener {
-            color = "Blau"
+            color = getString(R.string.goal_color_blue)
 
             uncheckColors(ZielFarbeÄndernStandard, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
             checkColor(ZielFarbeÄndernBlau)
         }
         ZielFarbeÄndernRot.setOnClickListener {
-            color = "Rot"
+            color = getString(R.string.goal_color_red)
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernStandard, ZielFarbeÄndernOrange, ZielFarbeÄndernGrau)
             checkColor(ZielFarbeÄndernRot)
         }
         ZielFarbeÄndernOrange.setOnClickListener {
-            color = "Orange"
+            color = getString(R.string.goal_color_orange)
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernStandard, ZielFarbeÄndernGrau)
             checkColor(ZielFarbeÄndernOrange)
         }
         ZielFarbeÄndernGrau.setOnClickListener {
-            color = "Grau"
+            color = getString(R.string.goal_color_gray)
 
             uncheckColors(ZielFarbeÄndernBlau, ZielFarbeÄndernRot, ZielFarbeÄndernOrange, ZielFarbeÄndernStandard)
             checkColor(ZielFarbeÄndernGrau)
@@ -107,30 +113,34 @@ class EditGoalActivity() : AppCompatActivity() {
             // Checks if the input fields are empty or not
             if (goalName.trim().isNotEmpty() && goalDuration.trim().isNotEmpty() && goalReminder != -1 && goalName.trim().length <= 35 && goalCategory.trim().length <= 15) {
                 val goalReminderName: RadioButton = findViewById(goalReminder)
-                Toast.makeText(applicationContext, "ZielName: $goalName \nZielDauer: $goalDuration \nZielErinnerung: ${goalReminderName.text} \nZielKategorie: $goalCategory \nZielFarbe: $goalColor", Toast.LENGTH_SHORT).show()
+                val goalReminderNameString: String = goalReminderName.text.toString()
 
-                FragmentGoals.goalList[position] =
+                val goalId: Int = goalList[position].ID
+
+                // Changes the goal object at the position in goalList
+                goalList[position] =
                     Goal(
                         goalName,
                         goalDuration,
-                        goalReminderName.text.toString(),
+                        goalReminderNameString,
                         goalCategory,
-                        goalColor
+                        goalColor,
+                        goalId
                     )
 
-                // Edits/Deletes goal in sharedPreferencs
-                editSavedGoals()
+                // Edits goal in sharedPreferencs
+                editSavedGoal()
 
                 finish()
             } else {
                 if(goalName.trim().isEmpty()) {
-                    ZielName.error = "Fehlende Eingabe"
+                    ZielName.error = getString(R.string.missing_input)
                 }
                 if(goalDuration.trim().isEmpty()) {
-                    ZielDauer.error = "Fehlende Eingabe"
+                    ZielDauer.error = getString(R.string.missing_input)
                 }
                 if(goalReminder == -1) {
-                    ZielErinnerung.error = "Fehlende Eingabe"
+                    ZielErinnerung.error = getString(R.string.missing_input)
                 }
             }
         }
@@ -145,7 +155,7 @@ class EditGoalActivity() : AppCompatActivity() {
 
             override fun onTextChanged(zielNameText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielNameText.trim().length > 35) {
-                    ZielNameEingabe.error = "Zu langer Name"
+                    ZielNameEingabe.error = getString(R.string.lengthy_name)
                 }
             }
         })
@@ -160,19 +170,48 @@ class EditGoalActivity() : AppCompatActivity() {
 
             override fun onTextChanged(zielKategorieText: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (zielKategorieText.trim().length > 15) {
-                    ZielNameEingabe.error = "Zu langer Kategoriename"
+                    ZielNameEingabe.error = getString(R.string.lengthy_category)
                 }
             }
         })
     }
 
+    // Function to set the individual input fields to the goal attributes
+    @SuppressLint("ResourceType")
+    private fun setFields() {
+        ZielNameEingabe.setText(goalList[position].Name)
+        ZielDauerAnzeige.setText(goalList[position].Duration)
+        when(goalList[position].Reminder) {
+            getString(R.string.goal_reminder_none) -> ZielErinnerungRadioGroup.check(2131230744)
+            getString(R.string.goal_reminder_daily) -> ZielErinnerungRadioGroup.check(2131230746)
+            getString(R.string.goal_reminder_weekly) -> ZielErinnerungRadioGroup.check(2131230747)
+            getString(R.string.goal_reminder_monthly) -> ZielErinnerungRadioGroup.check(2131230745)
+            else -> ZielErinnerungRadioGroup.check(2131230744)
+        }
+        ZielKategorieEingabe.setText(goalList[position].Category)
+        when(goalList[position].Color) {
+            getString(R.string.goal_color_standard) -> {checkColor(ZielFarbeÄndernStandard)
+                color = getString(R.string.goal_color_standard)}
+            getString(R.string.goal_color_blue) -> {checkColor(ZielFarbeÄndernBlau)
+                color = getString(R.string.goal_color_blue)}
+            getString(R.string.goal_color_red) -> {checkColor(ZielFarbeÄndernRot)
+                color = getString(R.string.goal_color_red)}
+            getString(R.string.goal_color_orange) -> {checkColor(ZielFarbeÄndernOrange)
+                color = getString(R.string.goal_color_orange)}
+            getString(R.string.goal_color_gray) -> {checkColor(ZielFarbeÄndernGrau)
+                color = getString(R.string.goal_color_gray)}
+            else -> {checkColor(ZielFarbeÄndernStandard)
+                color = ""}
+        }
+    }
+
     // Function to edit/delete the goalList into SharedPreferences
-    private fun editSavedGoals() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("goalPreferences", Context.MODE_PRIVATE)
+    private fun editSavedGoal() {
+        val sharedPreferences: SharedPreferences = getSharedPreferences(getString(R.string.goal_preferences_name), Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(FragmentGoals.goalList)
-        editor.putString("goals", json)
+        editor.putString(getString(R.string.goals_key), json)
         editor.apply()
 
     }
