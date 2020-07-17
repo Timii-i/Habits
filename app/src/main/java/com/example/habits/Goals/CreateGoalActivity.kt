@@ -181,7 +181,6 @@ class CreateGoalActivity() : AppCompatActivity() {
     private fun startAlarm(reminder: String, id: Int) {
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent: Intent = Intent(this, NotificationReceiver::class.java)
-        // requestCode muss unique sein für jeden Pendingintent
         val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, id, intent, 0)
 
         // Set repeating Alarm

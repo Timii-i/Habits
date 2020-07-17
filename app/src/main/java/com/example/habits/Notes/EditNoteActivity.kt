@@ -6,16 +6,19 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits.Notes.FragmentNotes.Companion.noteList
 import com.example.habits.R
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.create_note.*
 import kotlinx.android.synthetic.main.edit_note.*
 import kotlinx.android.synthetic.main.edit_note.NotizInhaltEingabe
 import kotlinx.android.synthetic.main.edit_note.NotizTitel
 
 class EditNoteActivity() : AppCompatActivity() {
+    private var color: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +27,48 @@ class EditNoteActivity() : AppCompatActivity() {
         // Sets the individual text fields to the content of the note from that position
         setFields()
 
+        // Actions when a color is pressed
+        NotizFarbeÄndernStandard.setOnClickListener {
+            color = getString(R.string.goal_color_standard)
+
+            uncheckColors(NotizFarbeÄndernBlau, NotizFarbeÄndernRot, NotizFarbeÄndernOrange, NotizFarbeÄndernGrau)
+            checkColor(NotizFarbeÄndernStandard)
+        }
+        NotizFarbeÄndernBlau.setOnClickListener {
+            color = getString(R.string.goal_color_blue)
+
+            uncheckColors(NotizFarbeÄndernStandard, NotizFarbeÄndernRot, NotizFarbeÄndernOrange, NotizFarbeÄndernGrau)
+            checkColor(NotizFarbeÄndernBlau)
+        }
+        NotizFarbeÄndernRot.setOnClickListener {
+            color = getString(R.string.goal_color_red)
+
+            uncheckColors(NotizFarbeÄndernBlau, NotizFarbeÄndernStandard, NotizFarbeÄndernOrange, NotizFarbeÄndernGrau)
+            checkColor(NotizFarbeÄndernRot)
+        }
+        NotizFarbeÄndernOrange.setOnClickListener {
+            color = getString(R.string.goal_color_orange)
+
+            uncheckColors(NotizFarbeÄndernBlau, NotizFarbeÄndernRot, NotizFarbeÄndernStandard, NotizFarbeÄndernGrau)
+            checkColor(NotizFarbeÄndernOrange)
+        }
+        NotizFarbeÄndernGrau.setOnClickListener {
+            color = getString(R.string.goal_color_gray)
+
+            uncheckColors(NotizFarbeÄndernBlau, NotizFarbeÄndernRot, NotizFarbeÄndernOrange, NotizFarbeÄndernStandard)
+            checkColor(NotizFarbeÄndernGrau)
+        }
+
         // Action when "Ändern" button is pressed
         NotizÄndernClick.setOnClickListener {
 
             // Saves the input from the user in variables
             val noteName: String = NotizTitelEingabe.text.toString()
             val noteContent: String = NotizInhaltEingabe.text.toString()
+            var noteColor: String = ""
+            if (color != "") {
+                noteColor = color
+            }
 
             NotizTitel.error = null
             NotizTitelEingabe.error = null
@@ -40,7 +79,8 @@ class EditNoteActivity() : AppCompatActivity() {
                 noteList[position] =
                     Note(
                         noteName,
-                        noteContent
+                        noteContent,
+                        noteColor
                     )
 
                 // Edits note in sharedPreferencs
@@ -76,6 +116,20 @@ class EditNoteActivity() : AppCompatActivity() {
     private fun setFields() {
         NotizTitelEingabe.setText(noteList[position].Name)
         NotizInhaltEingabe.setText(noteList[position].Content)
+        when(noteList[position].Color) {
+            getString(R.string.notes_color_standard) -> {checkColor(NotizFarbeÄndernStandard)
+                color = getString(R.string.notes_color_standard)}
+            getString(R.string.notes_color_blue) -> {checkColor(NotizFarbeÄndernBlau)
+                color = getString(R.string.notes_color_blue)}
+            getString(R.string.notes_color_red) -> {checkColor(NotizFarbeÄndernRot)
+                color = getString(R.string.notes_color_red)}
+            getString(R.string.notes_color_orange) -> {checkColor(NotizFarbeÄndernOrange)
+                color = getString(R.string.notes_color_orange)}
+            getString(R.string.notes_color_gray) -> {checkColor(NotizFarbeÄndernGrau)
+                color = getString(R.string.notes_color_gray)}
+            else -> {checkColor(NotizFarbeÄndernStandard)
+                color = ""}
+        }
     }
 
     // Function to save the noteList into SharedPreferences
@@ -87,6 +141,19 @@ class EditNoteActivity() : AppCompatActivity() {
         editor.putString(getString(R.string.notes_key), json)
         editor.apply()
 
+    }
+
+    // Function to uncheck every other color
+    private fun uncheckColors(button1: Button, button2: Button, button3: Button, button4: Button) {
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
+    }
+
+    // Function to check the color that was pressed
+    private fun checkColor(button: Button) {
+        button.text = "✔"
     }
 
     companion object {

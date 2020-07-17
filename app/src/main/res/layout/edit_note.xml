@@ -70,6 +70,82 @@
         app:layout_constraintTop_toBottomOf="@+id/NotizInhaltName"
         app:layout_constraintVertical_bias="0.0" />
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/NotizHinzufügenClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NotizInhaltEingabe"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@string/goal_color_desc"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/NotizFarbeÄndernStandard"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_standard"
+            android:text=""
+            android:textColor="#535353" />
+
+        <Button
+            android:id="@+id/NotizFarbeÄndernBlau"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_blue"
+            android:text=""
+            android:textColor="#535353" />
+
+        <Button
+            android:id="@+id/NotizFarbeÄndernRot"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_red"
+            android:text=""
+            android:textColor="#535353" />
+
+        <Button
+            android:id="@+id/NotizFarbeÄndernOrange"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_orange"
+            android:text=""
+            android:textColor="#535353" />
+
+        <Button
+            android:id="@+id/NotizFarbeÄndernGrau"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_gray"
+            android:text=""
+            android:textColor="#535353" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/NotizÄndernClick"
         android:layout_width="0dp"

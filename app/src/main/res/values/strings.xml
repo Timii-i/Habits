@@ -51,6 +51,11 @@
     <string name="note_test_content">Notizinhalt</string>
     <string name="note_preferences_name">notePreferences</string>
     <string name="notes_key">notes</string>
+    <string name="notes_color_standard">Standard</string>
+    <string name="notes_color_blue">Blau</string>
+    <string name="notes_color_red">Rot</string>
+    <string name="notes_color_orange">Orange</string>
+    <string name="notes_color_gray">Grau</string>
 
     <!--MOTIVATION RESOURCES -->
 
