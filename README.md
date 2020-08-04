@@ -16,4 +16,4 @@ You can create goals and reminders for each goal to regularly remind yourself wh
 
 To test the app for yourself you can clone the project and build it with [Android Studio](https://developer.android.com/studio).
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#habits)
