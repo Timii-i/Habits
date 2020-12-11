@@ -10,7 +10,7 @@ University Project for "Entwicklung mobiler Anwendungen" @ Worms University of A
 
 Habits is a mobile application written in Kotlin to help you form good habits. 
 
-You can create goals and reminders for each goal to regularly remind yourself what you are currently working towards. You can also create notes to structure your life better and read motivational quotes or tips on how form good habits. 
+You can create goals and reminders for each goal to regularly remind yourself what you are currently working towards. You can also create notes to structure your life better and read motivational quotes or tips on how to form good habits. 
 
 ### How To Use
 
